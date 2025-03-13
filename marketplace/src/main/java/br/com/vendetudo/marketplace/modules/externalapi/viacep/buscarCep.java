@@ -1,4 +1,5 @@
-package br.com.vendetudo.marketplace.modules.Adress.Entity;
+package br.com.vendetudo.marketplace.modules.externalapi.viacep;
+
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,5 @@ public interface buscarCep {
 
     @GetMapping("{cep}/json")
     ViaCepResponse buscarcep(@PathVariable("cep")String cep);
-
 
 }

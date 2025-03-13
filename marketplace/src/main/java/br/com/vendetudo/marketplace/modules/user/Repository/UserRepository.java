@@ -1,4 +1,9 @@
 package br.com.vendetudo.marketplace.modules.user.Repository;
+import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository {
+@Repository
+
+public interface UserRepository extends JpaRepository <UserEntity,Long>{
 }
