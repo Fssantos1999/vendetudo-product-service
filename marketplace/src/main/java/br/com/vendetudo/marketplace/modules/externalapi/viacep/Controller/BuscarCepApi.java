@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @FeignClient(name = "viacep",url ="viacep.com.br/ws/")
-public interface BuscarCepController {
+public interface BuscarCepApi {
 
     @GetMapping("{cep}/json")
     ViaCepResponse buscarcep(@PathVariable("cep")String cep);

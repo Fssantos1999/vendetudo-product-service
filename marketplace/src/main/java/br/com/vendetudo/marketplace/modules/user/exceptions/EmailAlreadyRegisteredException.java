@@ -8,3 +8,4 @@ public class EmailAlreadyRegisteredException extends RuntimeException{
 
 
 }
+    

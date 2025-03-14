@@ -10,8 +10,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @Mapping(target = "birthDate", source = "user.birthDate", qualifiedByName = "convertDate")
-    UserDTO userToUserDto(UserEntity user);
+//    @Mapping(target = "birthDate", source = "user.birthDate", qualifiedByName = "convertDate")
+    @Mapping(target = "viaCepResponse", source = "viaCepResponse") // Mapeia o endereço
+    UserDTO userToUserDto(UserEntity user);;
     @InheritInverseConfiguration
     UserEntity userDtoToUser(UserDTO userDto);
     @IterableMapping(elementTargetType = UserDTO.class)
@@ -21,6 +22,7 @@ public interface UserMapper {
     static String convertDate(Date date){
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
+
 
 
 }

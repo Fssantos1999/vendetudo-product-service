@@ -1,107 +1,73 @@
 package br.com.vendetudo.marketplace.modules.user.DTO;
 
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
-import java.util.List;
 
 public class UserDTO {
-        private Long id;
-        private String name;
-        private String email;
-        private String password;
-        private LocalDate birthDate;
-        private char gender;
-        private List<ViaCepResponse> viaCepResponseList;
+    private String name;
+    private String email;
+    private LocalDate birthDate;
+    private char gender;
+    private ViaCepResponse viaCepResponse; // Um único endereço
+    private String cep;
 
-        public UserDTO() {
-        }
+    public UserDTO() {
+    }
 
-        public List<ViaCepResponse> getViaCepResponseList() {
-            return viaCepResponseList;
-        }
+    public UserDTO(String name, String email, LocalDate birthDate, char gender, ViaCepResponse viaCepResponse, String cep) {
+        this.name = name;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.viaCepResponse = viaCepResponse;
+        this.cep = cep;
+    }
 
-        public void setViaCepResponseList(List<ViaCepResponse> viaCepResponseList) {
-            this.viaCepResponseList = viaCepResponseList;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public UserDTO(Long id, String name, String email, String password, LocalDate birthDate, char gender, List<ViaCepResponse> viaCepResponseList) {
-            this.id = id;
-            this.name = name;
-            this.email = email;
-            this.password = password;
-            this.birthDate = birthDate;
-            this.gender = gender;
-            this.viaCepResponseList = viaCepResponseList;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        public UserDTO(Long id, String name, String email, String password, LocalDate birthDate, char gender) {
-            this.id = id;
-            this.name = name;
-            this.email = email;
-            this.password = password;
-            this.birthDate = birthDate;
-            this.gender = gender;
-        }
+    public String getEmail() {
+        return email;
+    }
 
-        public Long getId() {
-            return id;
-        }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
 
-        public String getName() {
-            return name;
-        }
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public char getGender() {
+        return gender;
+    }
 
-        public String getEmail() {
-            return email;
-        }
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
 
-        public void setEmail(String email) {
-            this.email = email;
-        }
+    public ViaCepResponse getViaCepResponse() {
+        return viaCepResponse;
+    }
 
-        public String getPassword() {
-            return password;
-        }
+    public void setViaCepResponse(ViaCepResponse viaCepResponse) {
+        this.viaCepResponse = viaCepResponse;
+    }
 
-        public void setPassword(String password) {
-            this.password = password;
-        }
+    public String getCep() {
+        return cep;
+    }
 
-        public LocalDate getBirthDate() {
-            return birthDate;
-        }
-
-        public void setBirthDate(LocalDate birthDate) {
-            this.birthDate = birthDate;
-        }
-
-        public char getGender() {
-            return gender;
-        }
-
-        public void setGender(char gender) {
-            this.gender = gender;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
 }

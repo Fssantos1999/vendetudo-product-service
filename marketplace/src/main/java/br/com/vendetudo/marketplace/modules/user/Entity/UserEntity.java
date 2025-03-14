@@ -1,6 +1,7 @@
 package br.com.vendetudo.marketplace.modules.user.Entity;
 
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,41 +16,46 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
+    private String cep;
     private String password;
     private LocalDate birthDate;
     private char gender;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<ViaCepResponse> viaCepResponseList;
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "via_cep_response_id")
+    private ViaCepResponse viaCepResponse;
 
     public UserEntity() {
     }
 
-    public List<ViaCepResponse> getViaCepResponseList() {
-        return viaCepResponseList;
-    }
-
-    public void setViaCepResponseList(List<ViaCepResponse> viaCepResponseList) {
-        this.viaCepResponseList = viaCepResponseList;
-    }
-
-    public UserEntity(Long id, String name, String email, String password, LocalDate birthDate, char gender, List<ViaCepResponse> viaCepResponseList) {
+    public UserEntity(Long id, String name, String email, String cep, String password, LocalDate birthDate, char gender, ViaCepResponse viaCepResponse) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.cep = cep;
         this.password = password;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.viaCepResponseList = viaCepResponseList;
+        this.viaCepResponse = viaCepResponse;
     }
 
-    public UserEntity(Long id, String name, String email, String password, LocalDate birthDate, char gender) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.birthDate = birthDate;
-        this.gender = gender;
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public ViaCepResponse getViaCepResponse() {
+        return viaCepResponse;
+    }
+
+    public void setViaCepResponse(ViaCepResponse viaCepResponse) {
+        this.viaCepResponse = viaCepResponse;
     }
 
     public Long getId() {

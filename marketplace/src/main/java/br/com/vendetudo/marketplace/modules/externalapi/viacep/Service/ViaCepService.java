@@ -1,5 +1,6 @@
-package br.com.vendetudo.marketplace.modules.externalapi.viacep;
+package br.com.vendetudo.marketplace.modules.externalapi.viacep.Service;
 
+import br.com.vendetudo.marketplace.modules.externalapi.viacep.Dto.ViaCepResponseDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

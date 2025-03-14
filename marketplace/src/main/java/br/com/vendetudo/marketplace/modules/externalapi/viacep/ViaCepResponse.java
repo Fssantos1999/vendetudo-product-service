@@ -1,10 +1,9 @@
 package br.com.vendetudo.marketplace.modules.externalapi.viacep;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import org.springframework.context.annotation.Bean;
+import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 @Entity
 
@@ -19,16 +18,32 @@ public class ViaCepResponse {
     private String estado;
     private String regiao;
     private int ddd;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+     private UserEntity  userEntity;
 
-    public ViaCepResponse(String cep,  String bairro, String localidade, String estado, String regiao, int ddd) {
+    public ViaCepResponse(Long id, String cep, String bairro, String localidade, String estado, String regiao, int ddd, UserEntity userEntity) {
+        this.id = id;
         this.cep = cep;
-
         this.bairro = bairro;
         this.localidade = localidade;
         this.estado = estado;
         this.regiao = regiao;
         this.ddd = ddd;
+        this.userEntity = userEntity;
     }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+
 
     public ViaCepResponse() {
 
