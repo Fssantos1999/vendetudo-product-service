@@ -4,13 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ViaCepResponseDto {
-
     private String cep;
     private String bairro;
     private String localidade;
     private String uf; // Ajustado para coincidir com a resposta do ViaCEP
     private int ddd;
-
 
     public ViaCepResponseDto(String cep, String bairro, String localidade, String uf, int ddd) {
         this.cep = cep;
@@ -19,14 +17,12 @@ public class ViaCepResponseDto {
         this.uf = uf;
         this.ddd = ddd;
     }
-
     public ViaCepResponseDto() {
     }
 
     public String getCep() {
         return cep;
     }
-
     public String getBairro() {
         return bairro;
     }

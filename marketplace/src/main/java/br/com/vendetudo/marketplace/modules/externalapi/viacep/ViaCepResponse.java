@@ -1,15 +1,11 @@
 package br.com.vendetudo.marketplace.modules.externalapi.viacep;
-
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
-
 public class ViaCepResponse {
-
-    @Id
+''    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cep ;
@@ -41,19 +37,12 @@ public class ViaCepResponse {
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-
-
     public ViaCepResponse() {
 
     }
-
     public String getCep() {
         return cep;
     }
-
-
     public String getBairro() {
         return bairro;
     }

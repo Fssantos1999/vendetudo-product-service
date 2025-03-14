@@ -8,7 +8,7 @@ public class UserDTO {
     private String email;
     private LocalDate birthDate;
     private char gender;
-    private ViaCepResponse viaCepResponse; // Um único endereço
+    private ViaCepResponse viaCepResponse;
     private String cep;
 
     public UserDTO() {

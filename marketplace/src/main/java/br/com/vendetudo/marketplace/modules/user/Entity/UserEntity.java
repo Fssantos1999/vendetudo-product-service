@@ -1,13 +1,8 @@
 package br.com.vendetudo.marketplace.modules.user.Entity;
-
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -40,7 +35,6 @@ public class UserEntity {
         this.gender = gender;
         this.viaCepResponse = viaCepResponse;
     }
-
 
     public String getCep() {
         return cep;
