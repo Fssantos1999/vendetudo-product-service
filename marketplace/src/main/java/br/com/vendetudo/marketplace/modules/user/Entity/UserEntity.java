@@ -19,8 +19,7 @@ public class UserEntity {
     private String password;
     private LocalDate birthDate;
     private char gender;
-    @OneToMany
-    @Autowired
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
     private List<ViaCepResponse> viaCepResponseList;
 
     public UserEntity() {
