@@ -1,5 +1,4 @@
 package br.com.vendetudo.marketplace.modules.user.DTO;
-
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
 import java.time.LocalDate;
 

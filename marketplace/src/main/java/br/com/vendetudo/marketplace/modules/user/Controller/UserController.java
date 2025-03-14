@@ -1,5 +1,4 @@
 package br.com.vendetudo.marketplace.modules.user.Controller;
-
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import br.com.vendetudo.marketplace.modules.user.Mapper.UserMapper;
 import br.com.vendetudo.marketplace.modules.user.Service.UserServiceImplement;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-
-
     private final UserServiceImplement userServiceImplement;
     private final UserMapper userMapper;
 

@@ -1,5 +1,4 @@
 package br.com.vendetudo.marketplace.modules.externalapi.viacep.Controller;
-
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

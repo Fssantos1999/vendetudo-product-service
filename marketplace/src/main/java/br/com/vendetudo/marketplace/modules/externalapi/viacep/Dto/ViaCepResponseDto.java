@@ -1,5 +1,4 @@
 package br.com.vendetudo.marketplace.modules.externalapi.viacep.Dto;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
