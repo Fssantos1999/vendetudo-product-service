@@ -1,25 +1,22 @@
 package br.com.vendetudo.marketplace.modules.user.Controller;
-
+import br.com.vendetudo.marketplace.modules.user.DTO.UpdateUserDto;
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
-import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import br.com.vendetudo.marketplace.modules.user.Mapper.UserMapper;
 import br.com.vendetudo.marketplace.modules.user.Service.UserServiceImplement;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 public class UserController {
     private final UserServiceImplement userServiceImplement;
-    private final UserMapper userMapper;
 
     @Autowired
     public UserController(UserServiceImplement userServiceImplement, UserMapper userMapper) {
         this.userServiceImplement = userServiceImplement;
-        this.userMapper = userMapper;
     }
 
     @PostMapping("/register")
@@ -29,12 +26,14 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUserData(@RequestBody UserDTO user, @PathVariable Long id) {
+    public ResponseEntity<UpdateUserDto> updateUserData(@RequestBody UpdateUserDto user, @PathVariable Long id) {
         try {
             userServiceImplement.update(id, user);
             return new ResponseEntity<>(user, HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e ) {
+            return  ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
