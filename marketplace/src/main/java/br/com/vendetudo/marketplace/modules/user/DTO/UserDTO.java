@@ -9,17 +9,26 @@ public class UserDTO {
     private char gender;
     private ViaCepResponse viaCepResponse;
     private String cep;
+    private Long id;
 
     public UserDTO() {
     }
 
-    public UserDTO(String name, String email, LocalDate birthDate, char gender, ViaCepResponse viaCepResponse, String cep) {
+    public UserDTO(String name, String email, LocalDate birthDate, char gender, ViaCepResponse viaCepResponse, String cep, Long id) {
         this.name = name;
         this.email = email;
         this.birthDate = birthDate;
         this.gender = gender;
         this.viaCepResponse = viaCepResponse;
         this.cep = cep;
+        this.id = id;
+    }
+
+    public UserDTO(String name, String email, char gender,Long id) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.id = id;
     }
 
     public String getName() {
@@ -68,5 +77,13 @@ public class UserDTO {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

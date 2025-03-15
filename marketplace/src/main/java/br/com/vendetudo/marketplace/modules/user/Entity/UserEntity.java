@@ -1,5 +1,6 @@
 package br.com.vendetudo.marketplace.modules.user.Entity;
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -18,7 +19,7 @@ public class UserEntity {
     private LocalDate birthDate;
     private char gender;
     @JsonManagedReference
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "via_cep_response_id")
     private ViaCepResponse viaCepResponse;
 
@@ -35,6 +36,7 @@ public class UserEntity {
         this.gender = gender;
         this.viaCepResponse = viaCepResponse;
     }
+
 
     public String getCep() {
         return cep;

@@ -6,15 +6,19 @@ import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import br.com.vendetudo.marketplace.modules.user.Mapper.UserMapper;
 import br.com.vendetudo.marketplace.modules.user.Repository.UserRepository;
 import br.com.vendetudo.marketplace.modules.user.exceptions.EmailAlreadyRegisteredException;
+import br.com.vendetudo.marketplace.modules.user.exceptions.EmptyListExceptions;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.util.List;
+
 
 @Service
 public class UserServiceImplement implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private BuscarCepApi buscarCepApi;
+    private final BuscarCepApi buscarCepApi;
 
     @Autowired
     public UserServiceImplement(UserRepository userRepository, UserMapper userMapper, BuscarCepApi buscarCepApi) {
@@ -31,6 +35,7 @@ public class UserServiceImplement implements UserService {
         if (userRepository.findByEmail(userEntity.getEmail()).isPresent()) {
             throw new EmailAlreadyRegisteredException();
         }
+
         viaCepResponse.setUserEntity(userEntity);
         UserEntity savedUser = userRepository.save(userEntity);
         return userMapper.userToUserDto(savedUser);
@@ -38,28 +43,30 @@ public class UserServiceImplement implements UserService {
 
     @Override
     public ResponseEntity<UserDTO> delete(Long id) {
-        if(userRepository.existsById(id)){
+        if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
-            return  ResponseEntity.noContent().build();
+            return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
     }
 
     @Override
-    public UserDTO update() {
-        return null;
-    }
+    public UserDTO update(Long id, UserDTO user) {
+     UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+       userMapper.dtoParaUsuarioAtualizado(user, userEntity);
+        userRepository.save(userEntity);
+       return userMapper.userToUserDto(userEntity);
 
+    }
 
     @Override
-    public List<UserEntity> listarUsuarios() {
-        return List.of();
+    public List<UserDTO> listarUsuarios() {
+        List listarUsuarios = userMapper.userToUserDto(userRepository.findAll());
+        if (listarUsuarios.isEmpty()) {
+            throw new EmptyListExceptions();
+        }
+        return listarUsuarios;
     }
-
-
-
-
-
 
 
 }

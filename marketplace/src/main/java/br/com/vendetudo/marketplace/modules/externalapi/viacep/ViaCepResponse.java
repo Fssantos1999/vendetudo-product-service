@@ -14,7 +14,7 @@ public class ViaCepResponse {
     private String estado;
     private String regiao;
     private int ddd;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     @JsonBackReference
      private UserEntity  userEntity;
@@ -30,6 +30,12 @@ public class ViaCepResponse {
         this.userEntity = userEntity;
     }
 
+
+    public ViaCepResponse() {
+
+    }
+
+
     public UserEntity getUserEntity() {
         return userEntity;
     }
@@ -37,9 +43,7 @@ public class ViaCepResponse {
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
-    public ViaCepResponse() {
 
-    }
     public String getCep() {
         return cep;
     }

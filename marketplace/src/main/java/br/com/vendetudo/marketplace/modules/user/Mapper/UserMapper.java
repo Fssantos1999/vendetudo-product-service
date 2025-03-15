@@ -2,27 +2,26 @@ package br.com.vendetudo.marketplace.modules.user.Mapper;
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import org.mapstruct.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-//    @Mapping(target = "birthDate", source = "user.birthDate", qualifiedByName = "convertDate")
 
-    @Mapping(target = "viaCepResponse", source = "viaCepResponse") // Mapeia o endereço
-    UserDTO userToUserDto(UserEntity user);;
+public interface UserMapper {
+
+    @Mapping(target = "viaCepResponse", source = "viaCepResponse")
+    UserDTO userToUserDto(UserEntity user); // Converte Entidade → DTO
 
     @InheritInverseConfiguration
-    UserEntity userDtoToUser(UserDTO userDto);
+    UserEntity userDtoToUser(UserDTO userDto); // Converte DTO → Entidade
 
     @IterableMapping(elementTargetType = UserDTO.class)
     List<UserDTO> userToUserDto(List<UserEntity> user);
 
-    @Named("convertDate")
-    static String convertDate(Date date){
-        return new SimpleDateFormat("yyyy-MM-dd").format(date);
-    }
+    //* atualização parcial do usuario
+   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void dtoParaUsuarioAtualizado(UserDTO userDTO, @MappingTarget UserEntity userEntity); //! atualizar usuario
+
+
 
 
 
