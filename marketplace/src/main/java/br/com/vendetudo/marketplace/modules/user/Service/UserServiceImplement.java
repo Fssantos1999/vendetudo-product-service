@@ -1,6 +1,7 @@
 package br.com.vendetudo.marketplace.modules.user.Service;
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.Controller.BuscarCepApi;
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
+import br.com.vendetudo.marketplace.modules.user.DTO.UpdateUserDto;
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import br.com.vendetudo.marketplace.modules.user.Mapper.UserMapper;
@@ -45,26 +46,29 @@ public class UserServiceImplement implements UserService {
         }
         userRepository.deleteById(id);
     }
-    @Override
-    public UserDTO update(Long id, UserDTO user) {
-     UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFound::new);
-        userRepository.save(userEntity);
-       return userMapper.userToUserDto(userEntity);
 
+    @Override
+    public void update(Long id, UpdateUserDto user) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFound();
+        }
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFound::new);
+        userMapper.dtoParaUsuarioAtualizado(user, userEntity);
+        userRepository.save(userEntity);
     }
 
     @Override
     public List<UserDTO> listarUsuarios() {
-        List listarUsuarios = userMapper.userToUserDto(userRepository.findAll());
-        if (listarUsuarios.isEmpty()) {
+        List listaUsuarios = userMapper.userToUserDto(userRepository.findAll());
+        if (listaUsuarios.isEmpty()) {
             throw new EmptyListExceptions();
         }
-        return listarUsuarios;
+        return listaUsuarios;
     }
 
     @Override
     public UserDTO findUserById(Long id) {
-        UserEntity user = userRepository.findById(id).orElseThrow(()->new RuntimeException("user not found"));
+        UserEntity user = userRepository.findById(id).orElseThrow(UserNotFound::new);
         return  userMapper.userToUserDto(user);
 
     }

@@ -10,7 +10,6 @@ public class UserDTO {
     private ViaCepResponse viaCepResponse;
     private String cep;
     private Long id;
-
     public UserDTO() {
     }
 
