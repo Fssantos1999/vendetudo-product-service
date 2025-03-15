@@ -24,13 +24,6 @@ public class UserDTO {
         this.id = id;
     }
 
-    public UserDTO(String name, String email, char gender,Long id) {
-        this.name = name;
-        this.email = email;
-        this.gender = gender;
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }

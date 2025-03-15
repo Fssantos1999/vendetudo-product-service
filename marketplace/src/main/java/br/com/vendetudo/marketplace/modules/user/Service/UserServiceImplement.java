@@ -7,11 +7,11 @@ import br.com.vendetudo.marketplace.modules.user.Mapper.UserMapper;
 import br.com.vendetudo.marketplace.modules.user.Repository.UserRepository;
 import br.com.vendetudo.marketplace.modules.user.exceptions.EmailAlreadyRegisteredException;
 import br.com.vendetudo.marketplace.modules.user.exceptions.EmptyListExceptions;
-import jakarta.transaction.Transactional;
+import br.com.vendetudo.marketplace.modules.user.exceptions.UserNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -26,7 +26,6 @@ public class UserServiceImplement implements UserService {
         this.userMapper = userMapper;
         this.buscarCepApi = buscarCepApi;
     }
-
     @Override
     public UserDTO create(UserDTO userDTO) {
         ViaCepResponse viaCepResponse = buscarCepApi.buscarcep(userDTO.getCep());
@@ -35,25 +34,20 @@ public class UserServiceImplement implements UserService {
         if (userRepository.findByEmail(userEntity.getEmail()).isPresent()) {
             throw new EmailAlreadyRegisteredException();
         }
-
         viaCepResponse.setUserEntity(userEntity);
         UserEntity savedUser = userRepository.save(userEntity);
         return userMapper.userToUserDto(savedUser);
     }
-
     @Override
-    public ResponseEntity<UserDTO> delete(Long id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
+    public void delete(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFound();
         }
-        return ResponseEntity.notFound().build();
+        userRepository.deleteById(id);
     }
-
     @Override
     public UserDTO update(Long id, UserDTO user) {
-     UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
-       userMapper.dtoParaUsuarioAtualizado(user, userEntity);
+     UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFound::new);
         userRepository.save(userEntity);
        return userMapper.userToUserDto(userEntity);
 
@@ -66,6 +60,13 @@ public class UserServiceImplement implements UserService {
             throw new EmptyListExceptions();
         }
         return listarUsuarios;
+    }
+
+    @Override
+    public UserDTO findUserById(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow(()->new RuntimeException("user not found"));
+        return  userMapper.userToUserDto(user);
+
     }
 
 

@@ -1,4 +1,5 @@
 package br.com.vendetudo.marketplace.modules.user.Controller;
+
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import br.com.vendetudo.marketplace.modules.user.Mapper.UserMapper;
@@ -22,28 +23,42 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO){
-            userServiceImplement.create(userDTO);
-            return new ResponseEntity<>(userDTO,HttpStatus.CREATED);
-
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
+        userServiceImplement.create(userDTO);
+        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public  ResponseEntity<UserDTO> updateUserData(@RequestBody UserDTO user, @PathVariable Long id){
-          try {
-              userServiceImplement.update(id,user);
-              return  new ResponseEntity<>(user,HttpStatus.OK);
-          } catch (Exception e) {
-              throw new RuntimeException(e);
-          }
-
+    public ResponseEntity<UserDTO> updateUserData(@RequestBody UserDTO user, @PathVariable Long id) {
+        try {
+            userServiceImplement.update(id, user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @GetMapping("/listarusuarios")
-    public List<UserDTO> listUsers(){
-       return userServiceImplement.listarUsuarios();
+    public List<UserDTO> listUsers() {
+        return userServiceImplement.listarUsuarios();
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<UserDTO> findUser(@PathVariable Long id) {
+        try {
+            UserDTO userDTO =   userServiceImplement.findUserById(id);
+            return ResponseEntity.ok(userDTO);
+        }catch (RuntimeException e){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userServiceImplement.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

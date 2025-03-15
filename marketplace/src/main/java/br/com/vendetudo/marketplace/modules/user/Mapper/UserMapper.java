@@ -17,11 +17,14 @@ public interface UserMapper {
     @IterableMapping(elementTargetType = UserDTO.class)
     List<UserDTO> userToUserDto(List<UserEntity> user);
 
+    @IterableMapping(elementTargetType = UserEntity.class)
+    List <UserEntity> userDtoToUserEntity(List<UserDTO> userDTOS);
+
     //* atualização parcial do usuario
    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void dtoParaUsuarioAtualizado(UserDTO userDTO, @MappingTarget UserEntity userEntity); //! atualizar usuario
-
-
+//    @Mapping(source = "name", target = "name")
+//    UserDTO userEntityToUserDto(UserEntity userEntity);
 
 
 
