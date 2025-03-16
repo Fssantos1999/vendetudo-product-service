@@ -43,10 +43,10 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UserDTO> findUser(@PathVariable Long id) {
+    public ResponseEntity<UpdateUserDto> findUser(@PathVariable Long id) {
         try {
-            UserDTO userDTO =   userServiceImplement.findUserById(id);
-            return ResponseEntity.ok(userDTO);
+            UpdateUserDto updateUserDto =   userServiceImplement.findUserById(id);
+            return ResponseEntity.ok(updateUserDto);
         }catch (RuntimeException e){
             return  ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
