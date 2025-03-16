@@ -12,7 +12,7 @@ import br.com.vendetudo.marketplace.modules.user.exceptions.UserNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 
 @Service
@@ -20,6 +20,9 @@ public class UserServiceImplement implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final BuscarCepApi buscarCepApi;
+    private final String regexCPF = "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}\\-[0-9]{2}$";
+
+
 
     @Autowired
     public UserServiceImplement(UserRepository userRepository, UserMapper userMapper, BuscarCepApi buscarCepApi) {
@@ -39,12 +42,11 @@ public class UserServiceImplement implements UserService {
         UserEntity savedUser = userRepository.save(userEntity);
         return userMapper.userToUserDto(savedUser);
     }
+
     @Override
     public void delete(Long id) {
-        if (!userRepository.existsById(id)) {
-            throw new UserNotFound();
-        }
-        userRepository.deleteById(id);
+        UserEntity user = userRepository.findById(id).orElseThrow(UserNotFound::new);
+        userRepository.delete(user);
     }
 
     @Override
@@ -67,11 +69,25 @@ public class UserServiceImplement implements UserService {
     }
 
     @Override
-    public UserDTO findUserById(Long id) {
+    public UpdateUserDto findUserById(Long id) {
         UserEntity user = userRepository.findById(id).orElseThrow(UserNotFound::new);
-        return  userMapper.userToUserDto(user);
+        return  userMapper.toDto(user);
 
     }
+    /*
+        ADICIONAR CAMPO CPF, VALIDAR CPF, COLOCAR CPF COMO UNICO , DEFINIFINIR ATRIBUTO CPF COMO FINAL, DTOS NAO RETORNA CPF
+
+     */
+//    public void validaCpf(String cpf) {
+//        if (cpf == null || cpf.length() > 11 || !cpf.matches(regexCPF) || cpf.isEmpty()) {
+//            throw new RuntimeException("Cpf invalido");
+//        }
+//    }
+//
+
+
+
+
 
 
 }

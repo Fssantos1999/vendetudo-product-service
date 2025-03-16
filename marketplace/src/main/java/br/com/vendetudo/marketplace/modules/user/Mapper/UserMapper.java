@@ -2,7 +2,6 @@ package br.com.vendetudo.marketplace.modules.user.Mapper;
 import br.com.vendetudo.marketplace.modules.user.DTO.UpdateUserDto;
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
-import org.hibernate.sql.Update;
 import org.mapstruct.*;
 import java.util.List;
 
