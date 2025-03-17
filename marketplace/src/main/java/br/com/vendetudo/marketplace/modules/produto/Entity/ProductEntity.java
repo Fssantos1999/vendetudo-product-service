@@ -1,9 +1,10 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
 import jakarta.persistence.*;
-import java.time.LocalDate;
 
-@Table(name = "products")
+import java.math.BigDecimal;
+import java.time.LocalDate;
 @Entity
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,19 +13,21 @@ public class Product {
     private String productName;
     private String description;
     private String type;
+    private BigDecimal price;
     private Integer quantity;
     private String brand;
     private LocalDate releaseDate;
     private boolean IsAvailable = false ;
-
     public Product() {
     }
 
-    public Product(Long id, String productName, String description, String type, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
+    public Product(Long id, String productName, String description,
+                   String type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
         this.id = id;
         this.productName = productName;
         this.description = description;
         this.type = type;
+        this.price = price;
         this.quantity = quantity;
         this.brand = brand;
         this.releaseDate = releaseDate;
@@ -36,15 +39,16 @@ public class Product {
     }
 
     public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getProductName() {
-        return productName;
+        this.id = id;
     }
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getProductName() {
+        return productName;
     }
 
     public String getDescription() {
@@ -61,6 +65,14 @@ public class Product {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Integer getQuantity() {
