@@ -1,28 +1,32 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
+import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "products",schema = "Catalog")
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String productName;
     private String description;
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "productType")
+    private ProductTypeEnum type;
     private BigDecimal price;
     private Integer quantity;
     private String brand;
     private LocalDate releaseDate;
-    private boolean IsAvailable = false ;
-    public Product() {
+    private boolean isAvailable = false ;
+
+    public ProductEntity() {
     }
 
-    public Product(Long id, String productName, String description,
-                   String type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
+    public ProductEntity(Long id, String productName, String description,
+                         ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
         this.id = id;
         this.productName = productName;
         this.description = description;
@@ -31,7 +35,7 @@ public class Product {
         this.quantity = quantity;
         this.brand = brand;
         this.releaseDate = releaseDate;
-        IsAvailable = isAvailable;
+       this.isAvailable = isAvailable;
     }
 
     public Long getId() {
@@ -59,11 +63,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getType() {
+    public ProductTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ProductTypeEnum type) {
         this.type = type;
     }
 
@@ -100,10 +104,10 @@ public class Product {
     }
 
     public boolean isAvailable() {
-        return IsAvailable;
+        return isAvailable;
     }
 
     public void setAvailable(boolean available) {
-        IsAvailable = available;
+        isAvailable = available;
     }
 }

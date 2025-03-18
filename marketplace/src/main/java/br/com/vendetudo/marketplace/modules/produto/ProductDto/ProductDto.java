@@ -1,46 +1,33 @@
 package br.com.vendetudo.marketplace.modules.produto.ProductDto;
-
-import jakarta.persistence.Column;
+import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 
 import java.time.LocalDate;
 
 public class ProductDto {
 
-    private Long id;
-    @Column(nullable = false)
     private String productName;
     private String description;
-    private String type;
+    private ProductTypeEnum type;
     private Integer quantity;
     private String brand;
     private LocalDate releaseDate;
-    private boolean IsAvailable = false;
+    private boolean isAvailable = true;
 
-
-    public ProductDto(Long id, String productName, String description, String type,
+    public ProductDto(String productName, String description, ProductTypeEnum type,
                       Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
-        this.id = id;
         this.productName = productName;
         this.description = description;
         this.type = type;
         this.quantity = quantity;
         this.brand = brand;
         this.releaseDate = releaseDate;
-        IsAvailable = isAvailable;
+        this.isAvailable = isAvailable;
     }
 
 
     public ProductDto() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getProductName() {
         return productName;
@@ -58,11 +45,11 @@ public class ProductDto {
         this.description = description;
     }
 
-    public String getType() {
+    public ProductTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ProductTypeEnum type) {
         this.type = type;
     }
 
@@ -91,11 +78,11 @@ public class ProductDto {
     }
 
     public boolean isAvailable() {
-        return IsAvailable;
+        return isAvailable;
     }
 
     public void setAvailable(boolean available) {
-        IsAvailable = available;
+        isAvailable = available;
     }
 
 
