@@ -1,11 +1,11 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 @Entity
 @Table(name = "products")
+
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

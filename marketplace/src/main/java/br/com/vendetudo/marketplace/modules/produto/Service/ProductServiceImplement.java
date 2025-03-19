@@ -1,19 +1,14 @@
 package br.com.vendetudo.marketplace.modules.produto.Service;
-
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductIsDesactivateException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
-import br.com.vendetudo.marketplace.modules.produto.Exception.QuantityLimitException;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;

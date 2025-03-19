@@ -1,6 +1,5 @@
 package br.com.vendetudo.marketplace.modules.produto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
