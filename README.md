@@ -18,13 +18,17 @@ Este projeto é baseado em um e-commerce de variedades de produtos. Os clientes 
 ✅ Cadastro e login de usuários  
 ✅ Listagem de produtos por categoria  
 ✅ Carrinho de compras e checkout  
+✅ Adicionar quantidade de produtos disponiveis
+✅ Listar produtos por marcas
+✅ Lista de desejos (marcar produtos para compras futuras)
 ✅ Processamento de pagamentos *(ainda precisa ser implementado)*  
 ✅ Histórico de pedidos  
 ✅ Mapper *(para mapeamento de entidade e DTO)*  
+
 
 ## ⚙️ Instalação  
 
 1. **Clone o repositório**  
    ```sh
    git clone https://github.com/seu-usuario/ecommerce.git
-   cd ecommerce
+   cd marketplace
