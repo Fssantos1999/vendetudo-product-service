@@ -11,7 +11,7 @@ Este projeto é baseado em um e-commerce de variedades de produtos. Os clientes 
 - **Hibernate/JPA** (mapeamento objeto-relacional)  
 - **Docker** (para conteinerização)  
 - **API de Pagamento** *(exemplo: Stripe, PayPal — ainda precisa ser implementado)*
-- **Consumo da API VIACEP**
+- **Consumo da API VIACEP** *(Esta API e consumida para faciliar o registro de endereco do cliente)*
 
 ## 📌 Funcionalidades  
 
