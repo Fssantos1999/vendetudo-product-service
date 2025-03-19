@@ -1,10 +1,10 @@
 package br.com.vendetudo.marketplace.modules.produto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ProductDto {
-
     private String productName;
     private String description;
     private ProductTypeEnum type;
@@ -12,9 +12,10 @@ public class ProductDto {
     private String brand;
     private LocalDate releaseDate;
     private boolean isAvailable = true;
+    private BigDecimal price;
+    private Long id;
 
-    public ProductDto(String productName, String description, ProductTypeEnum type,
-                      Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
+    public ProductDto(String productName, String description, ProductTypeEnum type, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable, BigDecimal price, Long id) {
         this.productName = productName;
         this.description = description;
         this.type = type;
@@ -22,12 +23,28 @@ public class ProductDto {
         this.brand = brand;
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
+        this.price = price;
+        this.id = id;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     public ProductDto() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getProductName() {
         return productName;

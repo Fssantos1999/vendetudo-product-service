@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 @Entity
-@Table(name = "products",schema = "Catalog")
+@Table(name = "products")
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private String productName;
     private String description;
     @Enumerated(EnumType.STRING)

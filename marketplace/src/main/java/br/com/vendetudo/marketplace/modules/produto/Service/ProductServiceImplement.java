@@ -1,27 +1,30 @@
 package br.com.vendetudo.marketplace.modules.produto.Service;
 
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
-import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
-import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFound;
+import br.com.vendetudo.marketplace.modules.produto.Exception.ProductIsDesactivateException;
+import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
+import br.com.vendetudo.marketplace.modules.produto.Exception.QuantityLimitException;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
-import br.com.vendetudo.marketplace.modules.user.exceptions.UserNotFound;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Entity;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImplement implements  ProductService{
+public class ProductServiceImplement implements ProductService {
 
 
     ProductRepository productRepository;
-    ProductMapper productMapper ;
+    ProductMapper productMapper;
 
     @Autowired
     public ProductServiceImplement(ProductRepository productRepository, ProductMapper productMapper) {
@@ -41,8 +44,8 @@ public class ProductServiceImplement implements  ProductService{
 
     @Override
     public void deleteProduct(Long id) {
-        if(!productRepository.existsById(id)){
-            throw  new ProductNotFound();
+        if (!productRepository.existsById(id)) {
+            throw new ProductNotFoundException();
         }
         productRepository.deleteById(id);
     }
@@ -54,8 +57,8 @@ public class ProductServiceImplement implements  ProductService{
 
     @Override
     public ProductDto getProductById(Long id) {
-        ProductEntity productEntity = productRepository.findById(id).orElseThrow(ProductNotFound::new);
-        return  productMapper.toDto(productEntity);
+        ProductEntity productEntity = productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
+        return productMapper.toDto(productEntity);
     }
 
     @Override
@@ -64,20 +67,34 @@ public class ProductServiceImplement implements  ProductService{
     }
 
     @Override
-    public Boolean deactivateProduct(Long id) {
-        return null;
+    public Boolean deactivateProduct(Long id, Boolean status) {
+        ProductEntity productDto = productRepository.findById(id).orElseThrow(() ->new RuntimeException("product not found"));
+        ProductDto dto =    productMapper.toDto(productDto);
+        dto.setAvailable(status);
+        productRepository.save(productDto);
+        return   status;
     }
 
+    @Transactional
     @Override
-    public ProductDto addProductQuantity(Long id, int quantity) {
-        return null;
+    public ProductDto addProductQuantity(Long id, Integer quantity) {
+        if(quantity <= 0){
+            throw  new RuntimeException("A quantidade deve ser maior que 0");
+        }
+        ProductEntity updatedProduct = productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + id));
+        if(!updatedProduct.isAvailable()){
+            throw  new ProductIsDesactivateException();
+        }
+        productRepository.addQuantity(id, quantity);
+        return productMapper.toDto(updatedProduct);
     }
 
-    @Override
     public Map<Long, ProductDto> getProductsByBrand(String brand) {
-        return Map.of();
+        return productRepository.findByBrand(brand).stream()
+                .map(productMapper::toDto)
+                .collect(Collectors.toMap(ProductDto::getId, productDto->productDto));
     }
-
 
     @Override
     public List<ProductDto> getProductsOnSale() {
