@@ -18,8 +18,8 @@ Este projeto é baseado em um e-commerce de variedades de produtos. Os clientes 
 ✅ Listagem de produtos por categoria  
 ✅ Carrinho de compras e checkout  
 ✅ Processamento de pagamentos *(ainda precisa ser implementado)*  
-✅ Histórico de pedidos
-✅ Mapper (para mapeamento de entidade e dto)
+✅ Histórico de pedidos  
+✅ Mapper *(para mapeamento de entidade e DTO)*  
 
 ## ⚙️ Instalação  
 
