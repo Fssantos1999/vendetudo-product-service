@@ -6,7 +6,7 @@ Este projeto é baseado em um e-commerce de variedades de produtos. Os clientes 
 
 - **Java 23**  
 - **Spring Boot** (para a API REST)  
-- **Spring Security** *(autenticação e autorização — ainda precisa ser implementado)*  
+- **Spring Security** *(autenticação e autorização — ainda precisa ser implementado)* 
 - **PostgreSQL** (banco de dados)  
 - **Hibernate/JPA** (mapeamento objeto-relacional)  
 - **Docker** (para conteinerização)  
@@ -15,15 +15,15 @@ Este projeto é baseado em um e-commerce de variedades de produtos. Os clientes 
 
 ## 📌 Funcionalidades  
 
-✅ Cadastro e login de usuários  
-✅ Listagem de produtos por categoria  
-✅ Carrinho de compras e checkout  
-✅ Adicionar quantidade de produtos disponiveis
-✅ Listar produtos por marcas
-✅ Lista de desejos (marcar produtos para compras futuras)
-✅ Processamento de pagamentos *(ainda precisa ser implementado)*  
-✅ Histórico de pedidos  
-✅ Mapper *(para mapeamento de entidade e DTO)*  
+- ✅ Cadastro e login de usuários  
+- ✅ Listagem de produtos por categoria  
+- ✅ Carrinho de compras e checkout  
+- ✅ Adicionar quantidade de produtos disponiveis
+- ✅ Listar produtos por marcas
+- ✅ Lista de desejos *(marcar produtos para compras futuras)*
+- ✅ Processamento de pagamentos *(ainda precisa ser implementado)*  
+- ✅ Histórico de pedidos  
+- ✅ Mapper *(para mapeamento de entidade e DTO)*  
 
 
 ## ⚙️ Instalação  
