@@ -4,13 +4,14 @@ Este projeto é baseado em um e-commerce de variedades de produtos. Os clientes 
 
 ## 🚀 Tecnologias Utilizadas  
 
-- **Java 17**  
+- **Java 23**  
 - **Spring Boot** (para a API REST)  
 - **Spring Security** *(autenticação e autorização — ainda precisa ser implementado)*  
 - **PostgreSQL** (banco de dados)  
 - **Hibernate/JPA** (mapeamento objeto-relacional)  
 - **Docker** (para conteinerização)  
-- **API de Pagamento** *(exemplo: Stripe, PayPal — ainda precisa ser implementado)*  
+- **API de Pagamento** *(exemplo: Stripe, PayPal — ainda precisa ser implementado)*
+- **Consumo da API VIACEP**
 
 ## 📌 Funcionalidades  
 
