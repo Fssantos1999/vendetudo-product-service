@@ -1,13 +1,16 @@
 package br.com.vendetudo.marketplace.modules.user.Controller;
+
 import br.com.vendetudo.marketplace.modules.user.DTO.UpdateUserDto;
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import br.com.vendetudo.marketplace.modules.user.Mapper.UserMapper;
 import br.com.vendetudo.marketplace.modules.user.Service.UserServiceImplement;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -20,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> registerUser(@RequestBody  @Valid UserDTO userDTO) {
         userServiceImplement.create(userDTO);
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }

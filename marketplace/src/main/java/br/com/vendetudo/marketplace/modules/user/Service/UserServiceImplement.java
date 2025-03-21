@@ -9,6 +9,7 @@ import br.com.vendetudo.marketplace.modules.user.Repository.UserRepository;
 import br.com.vendetudo.marketplace.modules.user.exceptions.EmailAlreadyRegisteredException;
 import br.com.vendetudo.marketplace.modules.user.exceptions.EmptyListExceptions;
 import br.com.vendetudo.marketplace.modules.user.exceptions.UserNotFound;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -21,8 +22,6 @@ public class UserServiceImplement implements UserService {
     private final UserMapper userMapper;
     private final BuscarCepApi buscarCepApi;
     private final String regexCPF = "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}\\-[0-9]{2}$";
-
-
 
     @Autowired
     public UserServiceImplement(UserRepository userRepository, UserMapper userMapper, BuscarCepApi buscarCepApi) {

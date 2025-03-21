@@ -23,7 +23,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
     @Query("UPDATE ProductEntity p SET p.quantity = p.quantity + :quantity WHERE p.id = :id")
     void addQuantity(@Param("id") Long id, @Param("quantity") Integer quantity);
 
-    boolean existsByBrand(String brand);
 
     @Query("SELECT p FROM ProductEntity p where p.isAvailable IS TRUE ")
     List<ProductEntity> listProductStatusIfValueIsTrue();

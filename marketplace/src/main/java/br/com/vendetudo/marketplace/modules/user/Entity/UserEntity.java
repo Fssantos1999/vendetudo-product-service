@@ -15,7 +15,7 @@ public class UserEntity {
     private Long id;
     private String name;
     @Column(unique = true)
-    @Email
+    @Email(message = "O e-mail fornecido não é válido")
     private String email;
     private String cep;
     private LocalDate birthDate;
