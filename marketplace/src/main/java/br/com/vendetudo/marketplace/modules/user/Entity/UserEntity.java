@@ -2,6 +2,8 @@ package br.com.vendetudo.marketplace.modules.user.Entity;
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+
 import java.time.LocalDate;
 
 @Entity
@@ -13,6 +15,7 @@ public class UserEntity {
     private Long id;
     private String name;
     @Column(unique = true)
+    @Email
     private String email;
     private String cep;
     private LocalDate birthDate;

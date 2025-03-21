@@ -14,16 +14,17 @@ public class ProductDto {
     private BigDecimal price;
     private Long id;
 
-    public ProductDto(String productName, String description, ProductTypeEnum type, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable, BigDecimal price, Long id) {
+    public ProductDto(Long id, String productName, String description,
+                         ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
+        this.id = id;
         this.productName = productName;
         this.description = description;
         this.type = type;
+        this.price = price;
         this.quantity = quantity;
         this.brand = brand;
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
-        this.price = price;
-        this.id = id;
     }
 
     public BigDecimal getPrice() {

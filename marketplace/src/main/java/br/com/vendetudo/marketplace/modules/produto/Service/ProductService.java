@@ -9,14 +9,13 @@ import java.util.Map;
 
 public interface ProductService {
     ProductDto createProduct(ProductDto productDto);
-    ProductDto updateProduct(Long id);
+    ProductDto updateProduct(Long id, ProductDto dto);
     void deleteProduct(Long id);
     List<ProductDto> getProductsByType(String type);
     ProductDto getProductById(Long id);
     ProductDto applyDiscountToProduct(Long id, BigDecimal discount);
-    Boolean deactivateProduct(Long id,Boolean status);
+    ProductDto deactivateProduct(Long id,Boolean status);
     ProductDto addProductQuantity(Long id , Integer quantity);
-   // Map<Long,ProductDto> getProductsByBrand(String brand);
     List<ProductDto> getProductsOnSale();
     List<ProductDto> getLowStockProducts(int threshold);
     ProductDto  updateProductPrice(Long productId, BigDecimal newPrice);

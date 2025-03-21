@@ -16,17 +16,16 @@ import java.util.Map;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
 
-    @Query("select u from ProductEntity u where u.brand = ?1")
+    @Query("select u from ProductEntity u where lower(u.brand) = lower(?1)")
+    List<ProductEntity> findByBrandEqualsIgnoreCase(@Param("brand") String brand);
 
-    List<ProductEntity> findByBrand(String brand);
     @Modifying
-
     @Query("UPDATE ProductEntity p SET p.quantity = p.quantity + :quantity WHERE p.id = :id")
     void addQuantity(@Param("id") Long id, @Param("quantity") Integer quantity);
 
     boolean existsByBrand(String brand);
 
     @Query("SELECT p FROM ProductEntity p where p.isAvailable IS TRUE ")
-    List<ProductEntity> listStatusProducts();
+    List<ProductEntity> listProductStatusIfValueIsTrue();
 
 }

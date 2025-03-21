@@ -1,12 +1,15 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 @Entity
 @Table(name = "products")
 
-public class ProductEntity {
+public class ProductEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,8 +24,6 @@ public class ProductEntity {
     private LocalDate releaseDate;
     private boolean isAvailable = false ;
 
-    public ProductEntity() {
-    }
 
     public ProductEntity(Long id, String productName, String description,
                          ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
@@ -35,6 +36,10 @@ public class ProductEntity {
         this.brand = brand;
         this.releaseDate = releaseDate;
        this.isAvailable = isAvailable;
+    }
+
+    public ProductEntity() {
+
     }
 
     public Long getId() {

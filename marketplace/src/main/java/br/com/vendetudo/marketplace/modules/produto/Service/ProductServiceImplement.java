@@ -2,11 +2,14 @@ package br.com.vendetudo.marketplace.modules.produto.Service;
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductIsDesactivateException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
+import br.com.vendetudo.marketplace.modules.produto.Exception.ProductWithThisBrandNotExistException;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -17,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImplement implements ProductService {
 
-
+    private static final Logger log = LoggerFactory.getLogger(ProductServiceImplement.class);
     ProductRepository productRepository;
     ProductMapper productMapper;
 
@@ -27,14 +30,21 @@ public class ProductServiceImplement implements ProductService {
         this.productMapper = productMapper;
     }
 
+
     @Override
     public ProductDto createProduct(ProductDto productDto) {
         return null;
     }
 
     @Override
-    public ProductDto updateProduct(Long id) {
-        return null;
+    public ProductDto updateProduct(Long id, ProductDto dto) {
+        ProductEntity entity = productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
+        if (!entity.isAvailable()) {
+            throw new ProductIsDesactivateException();
+        }
+        productMapper.parcialUpdateProducts(dto,entity);
+        productRepository.save(entity);
+        return productMapper.toDto(entity);
     }
 
     @Override
@@ -62,33 +72,36 @@ public class ProductServiceImplement implements ProductService {
     }
 
     @Override
-    public Boolean deactivateProduct(Long id, Boolean status) {
-        ProductEntity productDto = productRepository.findById(id).orElseThrow(() ->new RuntimeException("product not found"));
-        ProductDto dto =    productMapper.toDto(productDto);
+    public ProductDto deactivateProduct(Long id, Boolean status) {
+        ProductEntity productDto = productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
+        ProductDto dto = productMapper.toDto(productDto);
         dto.setAvailable(status);
         productRepository.save(productDto);
-        return   status;
+        return dto;
     }
 
     @Transactional
     @Override
     public ProductDto addProductQuantity(Long id, Integer quantity) {
-        if(quantity <= 0){
-            throw  new RuntimeException("A quantidade deve ser maior que 0");
-        }
         ProductEntity updatedProduct = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + id));
-        if(!updatedProduct.isAvailable()){
-            throw  new ProductIsDesactivateException();
+        if (quantity <= 0) {
+            throw new RuntimeException("A quantidade deve ser maior que 0");
+        }
+        if (!updatedProduct.isAvailable()) {
+            throw new ProductIsDesactivateException();
         }
         productRepository.addQuantity(id, quantity);
         return productMapper.toDto(updatedProduct);
     }
 
     public Map<Long, ProductDto> getProductsByBrand(String brand) {
-        return productRepository.findByBrand(brand).stream()
+         if(productRepository.findByBrandEqualsIgnoreCase(brand).isEmpty()){
+            throw new ProductWithThisBrandNotExistException();
+        }
+        return productRepository.findByBrandEqualsIgnoreCase(brand).stream()
                 .map(productMapper::toDto)
-                .collect(Collectors.toMap(ProductDto::getId, productDto->productDto));
+                .collect(Collectors.toMap(ProductDto::getId, productDto -> productDto));
     }
 
     @Override
@@ -103,6 +116,13 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public ProductDto updateProductPrice(Long productId, BigDecimal newPrice) {
-        return null;
+        if (!productRepository.existsById(productId)) {
+            throw new ProductNotFoundException();
+        }
+        if (newPrice.compareTo(BigDecimal.ZERO) <=0) {
+            throw new RuntimeException("valor nao pode ser zero");
+        }
+        ProductEntity entity = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("error"));
+        return productMapper.toDto(entity);
     }
 }
