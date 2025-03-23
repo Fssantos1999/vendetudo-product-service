@@ -13,7 +13,6 @@ public interface ProductService {
     void deleteProduct(Long id);
     List<ProductDto> getProductsByType(String type);
     ProductDto getProductById(Long id);
-    ProductDto applyDiscountToProduct(Long id, BigDecimal discount);
     ProductDto deactivateProduct(Long id,Boolean status);
     ProductDto addProductQuantity(Long id , Integer quantity);
     List<ProductDto> getProductsOnSale();

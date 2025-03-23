@@ -13,7 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
+import java.text.ListFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -58,15 +60,11 @@ public class ProductServiceImplement implements ProductService {
         return List.of();
     }
 
+
     @Override
     public ProductDto getProductById(Long id) {
         ProductEntity productEntity = productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
         return productMapper.toDto(productEntity);
-    }
-
-    @Override
-    public ProductDto applyDiscountToProduct(Long id, BigDecimal discount) {
-        return null;
     }
 
     @Override

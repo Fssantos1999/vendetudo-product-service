@@ -17,7 +17,6 @@ import java.util.Map;
 @RestController
 public class ProductController {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
     private final ProductServiceImplement productServiceImplement;
     @Autowired
     public ProductController(ProductServiceImplement productServiceImplement) {
@@ -29,12 +28,9 @@ public class ProductController {
         productServiceImplement.addProductQuantity(id, quantity);
         return ResponseEntity.noContent().build();
     }
-    @ExceptionHandler(ProductWithThisBrandNotExistException.class)
+
     @GetMapping("/by-brand")
     public ResponseEntity<Map<Long, ProductDto>> returnProductsBrand(@RequestParam(required = false) String brand) {
-        if(brand == null || brand.trim().isEmpty()){
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of());
-        }
         try {
             return ResponseEntity.ok(productServiceImplement.getProductsByBrand(brand));
         } catch (ProductWithThisBrandNotExistException e) {
