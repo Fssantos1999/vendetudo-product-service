@@ -33,11 +33,10 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public ProductDto createProduct(ProductDto create) {
-        ProductEntity entity = productMapper.toEntity(create);
-        productRepository.save(entity);
-        return  productMapper.toDto(entity);
+        ProductEntity product = productMapper.toEntity(create);
+        ProductEntity savedProduct = productRepository.save(product);
+        return productMapper.toDto(savedProduct);
     }
-
     @Override
     public ProductDto updateProduct(Long id, ProductDto dto) {
         ProductEntity entity = productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
