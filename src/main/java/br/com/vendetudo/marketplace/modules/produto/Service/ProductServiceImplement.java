@@ -32,8 +32,10 @@ public class ProductServiceImplement implements ProductService {
     }
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) {
-        return null;
+    public ProductDto createProduct(ProductDto create) {
+        ProductEntity entity = productMapper.toEntity(create);
+        productRepository.save(entity);
+        return  productMapper.toDto(entity);
     }
 
     @Override

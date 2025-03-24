@@ -5,6 +5,8 @@ import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
+import org.h2.util.ScriptReader;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -86,8 +90,6 @@ class ProductServiceImplementTest {
         verify(repository).save(entity);
         verify(mapper).toDto(entity);
     }
-
-
 
 
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.util.Map;
@@ -21,6 +22,12 @@ public class ProductController {
     @Autowired
     public ProductController(ProductServiceImplement productServiceImplement) {
         this.productServiceImplement = productServiceImplement;
+    }
+
+
+    @PostMapping
+    public ResponseEntity <ProductDto> criarProduto(@RequestBody ProductDto create){
+        return  ResponseEntity.status(HttpStatus.CREATED).body(productServiceImplement.createProduct(create));
     }
 
     @PatchMapping("/{id}/addQuantity")
