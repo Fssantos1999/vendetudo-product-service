@@ -21,7 +21,6 @@ public class UserServiceImplement implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final BuscarCepApi buscarCepApi;
-    private final String regexCPF = "^[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}\\-[0-9]{2}$";
 
     @Autowired
     public UserServiceImplement(UserRepository userRepository, UserMapper userMapper, BuscarCepApi buscarCepApi) {
@@ -73,20 +72,5 @@ public class UserServiceImplement implements UserService {
         return  userMapper.toDto(user);
 
     }
-    /*
-        ADICIONAR CAMPO CPF, VALIDAR CPF, COLOCAR CPF COMO UNICO , DEFINIFINIR ATRIBUTO CPF COMO FINAL, DTOS NAO RETORNA CPF
-
-     */
-//    public void validaCpf(String cpf) {
-//        if (cpf == null || cpf.length() > 11 || !cpf.matches(regexCPF) || cpf.isEmpty()) {
-//            throw new RuntimeException("Cpf invalido");
-//        }
-//    }
-//
-
-
-
-
-
 
 }

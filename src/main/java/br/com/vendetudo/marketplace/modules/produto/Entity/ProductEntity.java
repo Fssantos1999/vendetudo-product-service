@@ -121,4 +121,7 @@ public class ProductEntity implements Serializable {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+
+
+
 }

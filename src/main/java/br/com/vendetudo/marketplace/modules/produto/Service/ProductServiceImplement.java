@@ -1,5 +1,6 @@
 package br.com.vendetudo.marketplace.modules.produto.Service;
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
+import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductIsDesactivateException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductWithThisBrandNotExistException;
@@ -57,8 +58,11 @@ public class ProductServiceImplement implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getProductsByType(String type) {
-        return List.of();
+    public List <ProductEntity> getProductsByType(ProductTypeEnum type) {
+        if(productRepository.filterByType(type).isEmpty()){
+            throw new RuntimeException("Este tipo de produto nao foi encontrado");
+        }
+        return productRepository.filterByType(type);
     }
 
 
@@ -99,11 +103,6 @@ public class ProductServiceImplement implements ProductService {
         return productRepository.findByBrandEqualsIgnoreCase(brand).stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toMap(ProductDto::getId, productDto -> productDto));
-    }
-
-    @Override
-    public List<ProductDto> getProductsOnSale() {
-        return List.of();
     }
 
     @Override

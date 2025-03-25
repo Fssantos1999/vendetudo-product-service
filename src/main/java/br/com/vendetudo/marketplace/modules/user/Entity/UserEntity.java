@@ -1,4 +1,5 @@
 package br.com.vendetudo.marketplace.modules.user.Entity;
+
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -8,7 +9,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "accounts")
-
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
