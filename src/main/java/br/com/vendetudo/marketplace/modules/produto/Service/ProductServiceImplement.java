@@ -4,6 +4,7 @@ import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductIsDesactivateException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductWithThisBrandNotExistException;
+import br.com.vendetudo.marketplace.modules.produto.Exception.QuantityLimitException;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
@@ -85,9 +86,9 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public ProductDto addProductQuantity(Long id, Integer quantity) {
         ProductEntity updatedProduct = productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado com ID: " + id));
+                .orElseThrow(ProductNotFoundException::new);
         if (quantity <= 0) {
-            throw new RuntimeException("A quantidade deve ser maior que 0");
+            throw new QuantityLimitException();
         }
         if (!updatedProduct.isAvailable()) {
             throw new ProductIsDesactivateException();

@@ -25,45 +25,38 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductServiceImplement productServiceImplement;
+
     @Autowired
     public ProductController(ProductServiceImplement productServiceImplement) {
         this.productServiceImplement = productServiceImplement;
     }
 
     @PostMapping
-    public ResponseEntity <ProductDto> createProduct(@RequestBody @Valid ProductDto create){
-        return  ResponseEntity.status(HttpStatus.CREATED).body(productServiceImplement.createProduct(create));
+    public ResponseEntity<ProductDto> createProduct(@RequestBody @Valid ProductDto create) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productServiceImplement.createProduct(create));
     }
+
     @PatchMapping("/{id}/atualizaproduto")
-    public ProductDto updateProduct(@PathVariable Long id,@RequestBody @Valid ProductDto atualizar){
-       return productServiceImplement.updateProduct(id,atualizar);
+    public ProductDto updateProduct(@PathVariable Long id, @RequestBody @Valid ProductDto atualizar) {
+        return productServiceImplement.updateProduct(id, atualizar);
     }
 
     @PatchMapping("/{id}/addQuantity")
-    public ResponseEntity<Void> addQuantity(@PathVariable Long id, @RequestParam  @PositiveOrZero Integer quantity) {
+    public ResponseEntity<Void> addQuantity(@PathVariable Long id, @RequestParam @PositiveOrZero Integer quantity) {
         productServiceImplement.addProductQuantity(id, quantity);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/by-brand")
-    public ResponseEntity<Map<Long, ProductDto>>returnBrandByBrand(@RequestParam(required = false) String brand) {
-        try {
-            return ResponseEntity.ok(productServiceImplement.getProductsByBrand(brand));
-        } catch (ProductWithThisBrandNotExistException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    @GetMapping("/filter")
+    public ResponseEntity<Map<Long, ProductDto>> returnBrandByBrand(@RequestParam(required = false) String brand) {
+        return ResponseEntity.ok(productServiceImplement.getProductsByBrand(brand));
+
     }
 
-    @GetMapping("/filterType")
-    public ResponseEntity<List<ProductEntity>> filterTypeProduct(@RequestParam @Valid ProductTypeEnum type){
-        try {
-            return  ResponseEntity.status(HttpStatus.OK).body ( productServiceImplement.getProductsByType(type));
-        }catch (RuntimeException e){
-          return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
+    @GetMapping("/filtertype")
+    public ResponseEntity<List<ProductEntity>> filterTypeProduct(@RequestParam @Valid ProductTypeEnum type) {
+
+        return ResponseEntity.status(HttpStatus.OK).body(productServiceImplement.getProductsByType(type));
+
     }
-
-
 }
