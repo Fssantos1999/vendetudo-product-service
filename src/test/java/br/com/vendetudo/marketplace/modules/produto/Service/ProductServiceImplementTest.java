@@ -2,6 +2,9 @@ package br.com.vendetudo.marketplace.modules.produto.Service;
 
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
+import br.com.vendetudo.marketplace.modules.produto.Exception.ProductIsDesactivateException;
+import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
+import br.com.vendetudo.marketplace.modules.produto.Exception.QuantityLimitException;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
@@ -30,110 +33,92 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ProductServiceImplementTest {
     @InjectMocks
-    private ProductServiceImplement service; // Classe a ser testada
+    private ProductServiceImplement service;
 
     @Mock
-    private ProductRepository repository; // Mock do repositório
+    private ProductRepository repository;
 
     @Mock
-    private ProductMapper mapper; // Mock do mapper
+    private ProductMapper mapper;
 
     private ProductDto productDto;
     private ProductEntity productEntity;
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImplementTest.class);
 
 
-    @BeforeEach
-    void setUp() {
-        productDto = new ProductDto(1L, "Nike", "Tenis Rosa", ProductTypeEnum.CLOTHING,
-                BigDecimal.valueOf(250.00), 23, "Adidas",
-                LocalDate.of(2025, 5, 23), true);
+@BeforeEach
+  void setUp() {
+      productDto = new ProductDto(
+              2L,
+               "Chuteira Nike",
+              "Tênis Esportivo",
+              ProductTypeEnum.CLOTHING,
+               BigDecimal.valueOf(250.00),
+               23,
+               "Nike",
+               LocalDate.of(2025, 5, 23),
+               true
+       );
 
-        productEntity = new ProductEntity(1L, "Nike", "Tenis Rosa", ProductTypeEnum.CLOTHING,
-                BigDecimal.valueOf(250.00), 23, "Adidas",
-                LocalDate.of(2025, 5, 23), true);
-    }
-
-
-
-    @Test
-    void deveAtualizarProduto() {
-        //*PRODUTO ATUAL NA ENTIDADE ADIDAS E TENIS BRANCO
-        ProductEntity entity = new ProductEntity(1L,
-                "Adidas", "Tenis Branco", ProductTypeEnum.CLOTHING,
-                BigDecimal.valueOf(25000), 23, "Adidas",
-                LocalDate.of(2025, 5, 23), true);
-        //*PRODUTO DEPOIS DE ATUALIZADO DEVE CONTERR TENIS ROSA E NIKE
-        ProductDto dtos = new ProductDto(1L,
-                "Nike", "Tenis Rosa", ProductTypeEnum.CLOTHING,
-                BigDecimal.valueOf(25000), 23, "Adidas",
-                LocalDate.of(2025, 5, 23), true);
-
-        System.out.println("Antes da atualização: " + entity.getProductName() + " " + entity.getDescription());
-
-        // 🔹🔹🔹🔹 Mockando a busca no banco
-        when(repository.findById(1L)).thenReturn(Optional.of(entity)); //!deve retornar um optional pq o findbyid espera um optional
-
-        //!🔹🔹🔹 🔹 Simulando a atualização da entidade
-            doAnswer(invocation -> {
-                ProductDto dtoArg = invocation.getArgument(0);
-                ProductEntity entityArg = invocation.getArgument(1);
-
-                // !Atualizando os valores manualmente
-                entityArg.setProductName(dtoArg.getProductName());
-                entityArg.setDescription(dtoArg.getDescription());
-                entityArg.setAvailable(dtoArg.isAvailable());
-
-                return null;
-            }).when(mapper).parcialUpdateProducts(any(ProductDto.class), any(ProductEntity.class));
-
-        // !🔹🔹🔹🔹 Mock do save() para garantir que a entidade atualizada seja retornada
-        when(repository.save(any(ProductEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
-
-        // *🔹 🔹🔹🔹QUANDO FEITO MAPPER DA ENTIDADE  DEVE ME RETORNAR UM DTO
-        when(mapper.toDto(any(ProductEntity.class))).thenReturn(dtos);
-
-
-        ProductDto imprimir = service.updateProduct(1L, dtos);
-
-        // 🔹🔹🔹🔹 DEBUGA
-        System.out.println("Depois da atualização: " + entity.getProductName() + " " + entity.getDescription());
-        System.out.println("Retorno do método: " + imprimir.getProductName() + " " + imprimir.getDescription());
-
-        // 🔹🔹🔹🔹 NAO PODE ME RETORNAR NULO E TEM QUE ME RETORNAR UM NIKE E  TENIS ROSA
-        assertNotNull(imprimir, "O retorno do updateProduct não pode ser nulo");
-        assertEquals("Nike", imprimir.getProductName());
-        assertEquals("Tenis Rosa", imprimir.getDescription());
-        assertTrue(imprimir.isAvailable());
-
-        // 🔹🔹🔹🔹 Verificações dos mocks para ver see esta sendo salvo no bd
-        verify(repository).findById(1L);
-        verify(mapper).parcialUpdateProducts(dtos, entity);
-        verify(repository).save(entity);
-        verify(mapper).toDto(entity);
-    }
+       productEntity = new ProductEntity(
+               2L,
+               "Nike Rosa",
+               "Tênis Rosa",
+               ProductTypeEnum.CLOTHING,
+               BigDecimal.valueOf(250.00),
+               23,
+               "Nike",
+               LocalDate.of(2025, 5, 23),
+               true
+       );
+   }
 
 
     @Test
     void deveCriarUmProduto() {
-        // Configuração dos mocks
+
         when(mapper.toEntity(productDto)).thenReturn(productEntity);
         when(repository.save(productEntity)).thenReturn(productEntity);
         when(mapper.toDto(productEntity)).thenReturn(productDto);
-
-        // Executa o método a ser testado
         ProductDto savedProduct = service.createProduct(productDto);
-
-        // Verificações
-        assertNotNull(savedProduct); // Verifica se não é null
-        assertEquals(productDto, savedProduct); // Verifica se o retorno é correto
-
-        // Garante que os métodos foram chamados
+        assertNotNull(savedProduct);
+        assertEquals(productDto, savedProduct);
         verify(mapper).toEntity(productDto);
         verify(repository).save(productEntity);
         verify(mapper).toDto(productEntity);
+    }
+
+    @Test
+    @DisplayName(" lança uma exceção se algum dos campos for nullo")
+    void deveLancarExcecaoSeAlgumCampoObrigatorioDoProdutoForNulo() {
+        productDto.setProductName(null);
+        when(mapper.toEntity(productDto)).thenThrow(new IllegalArgumentException("Produto não pode ser nulo"));
+        assertThrows(IllegalArgumentException.class, () -> service.createProduct(productDto));
+    }
+
+
+    @Test
+    @DisplayName("lança uma exceção se o produto estiver desativado")
+    void deveLancarExcecaoSeProdutoEstiverDesativado() {
+        productEntity.setAvailable(false);
+        productDto.setAvailable(false);
+        productEntity.setProductName("teste");
+        productDto.setProductName("teste");
+        when(repository.findById(2L)).thenReturn(Optional.of(productEntity));
+        assertThrows(ProductIsDesactivateException.class, () -> service.updateProduct(2L, productDto));
+    }
+
+
+
+
+
+
 
 
     }
 
-}
+
+
+
+
+

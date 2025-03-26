@@ -1,10 +1,7 @@
 package br.com.vendetudo.marketplace.modules.produto.Service;
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
-import br.com.vendetudo.marketplace.modules.produto.Exception.ProductIsDesactivateException;
-import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
-import br.com.vendetudo.marketplace.modules.produto.Exception.ProductWithThisBrandNotExistException;
-import br.com.vendetudo.marketplace.modules.produto.Exception.QuantityLimitException;
+import br.com.vendetudo.marketplace.modules.produto.Exception.*;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
@@ -61,7 +58,7 @@ public class ProductServiceImplement implements ProductService {
     @Override
     public List <ProductEntity> getProductsByType(ProductTypeEnum type) {
         if(productRepository.filterByType(type).isEmpty()){
-            throw new RuntimeException("Este tipo de produto nao foi encontrado");
+            throw new ProductNotFoundException();
         }
         return productRepository.filterByType(type);
     }
@@ -108,18 +105,25 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public List<ProductDto> getLowStockProducts(int threshold) {
-        return List.of();
+
+        List <ProductEntity> listEntity =   productRepository.listProductWithLowQuantityInStock(threshold);
+
+        return productMapper.listToDto(listEntity);
     }
 
     @Override
     public ProductDto updateProductPrice(Long productId, BigDecimal newPrice) {
-        if (!productRepository.existsById(productId)) {
-            throw new ProductNotFoundException();
-        }
+
+        ProductEntity productEntity = productRepository.findById(productId)
+                .orElseThrow(ProductNotFoundException::new);
         if (newPrice.compareTo(BigDecimal.ZERO) <=0) {
-            throw new RuntimeException("valor nao pode ser zero");
+            throw new InvalidPriceException(newPrice);
         }
-        ProductEntity entity = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("error"));
-        return productMapper.toDto(entity);
+        if (!productEntity.isAvailable()){
+            throw  new ProductIsDesactivateException();
+        }
+        productEntity.setPrice(newPrice);
+        productRepository.save(productEntity);
+        return productMapper.toDto(productEntity);
     }
 }

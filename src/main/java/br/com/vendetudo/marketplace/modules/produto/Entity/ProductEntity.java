@@ -1,5 +1,6 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
@@ -23,6 +24,7 @@ public class ProductEntity implements Serializable {
     @Column(name = "productType")
     private ProductTypeEnum type;
     @Positive
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
     @PositiveOrZero
     private Integer quantity;

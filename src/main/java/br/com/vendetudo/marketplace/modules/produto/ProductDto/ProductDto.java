@@ -1,5 +1,6 @@
 package br.com.vendetudo.marketplace.modules.produto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -17,6 +18,7 @@ public class ProductDto {
     private String brand;
     private LocalDate releaseDate;
     private boolean isAvailable = true;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
     private Long id;
 

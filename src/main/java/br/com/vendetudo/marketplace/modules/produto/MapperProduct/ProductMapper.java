@@ -3,6 +3,8 @@ import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import org.mapstruct.*;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
@@ -13,8 +15,9 @@ public interface ProductMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void parcialUpdateProducts(ProductDto productDto, @MappingTarget ProductEntity productEntity);
 
-    @Mapping(target = "quantity", expression = "java( productDto.getQuantity() + productEntity.getQuantity() )")
-    void addQuantity(ProductDto productDto, @MappingTarget ProductEntity productEntity);
 
+    List<ProductDto> listToDto(List<ProductEntity>entities);
+
+    List<ProductEntity> listToEntitie(List<ProductDto>dtoslist);
 
 }

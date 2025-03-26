@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.net.ssl.HttpsURLConnection;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +33,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> createProduct(@RequestBody @Valid ProductDto create) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productServiceImplement.createProduct(create));
+    public ProductDto createProduct(@RequestBody @Valid ProductDto create) {
+        return productServiceImplement.createProduct(create);
     }
 
     @PatchMapping("/{id}/atualizaproduto")
@@ -42,21 +43,27 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}/addQuantity")
-    public ResponseEntity<Void> addQuantity(@PathVariable Long id, @RequestParam @PositiveOrZero Integer quantity) {
+    public void addQuantity(@PathVariable Long id, @RequestParam @PositiveOrZero Integer quantity) {
         productServiceImplement.addProductQuantity(id, quantity);
-        return ResponseEntity.noContent().build();
+
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<Map<Long, ProductDto>> returnBrandByBrand(@RequestParam(required = false) String brand) {
-        return ResponseEntity.ok(productServiceImplement.getProductsByBrand(brand));
+    public Map<Long, ProductDto> returnBrandByBrand(@RequestParam(required = false) String brand) {
+        return productServiceImplement.getProductsByBrand(brand);
 
     }
-
     @GetMapping("/filtertype")
-    public ResponseEntity<List<ProductEntity>> filterTypeProduct(@RequestParam @Valid ProductTypeEnum type) {
-
-        return ResponseEntity.status(HttpStatus.OK).body(productServiceImplement.getProductsByType(type));
+    public List<ProductEntity>filterTypeProduct(@RequestParam @Valid ProductTypeEnum type) {
+        return productServiceImplement.getProductsByType(type);
 
     }
+
+    @PatchMapping("/{productId}/price")
+    public ProductDto updateProductPrice(@PathVariable Long productId, @RequestBody ProductDto priceUpdateRequest) {
+        return productServiceImplement.updateProductPrice(productId, priceUpdateRequest.getPrice());
+    }
+
+
+
 }

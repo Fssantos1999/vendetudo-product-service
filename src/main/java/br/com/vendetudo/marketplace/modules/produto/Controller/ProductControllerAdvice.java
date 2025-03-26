@@ -1,4 +1,5 @@
 package br.com.vendetudo.marketplace.modules.produto.Controller;
+import br.com.vendetudo.marketplace.modules.produto.Exception.InvalidPriceException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductNotFoundException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.ProductWithThisBrandNotExistException;
 import br.com.vendetudo.marketplace.modules.produto.Exception.QuantityLimitException;
@@ -25,8 +26,14 @@ public class ProductControllerAdvice {
 
     @ExceptionHandler(ProductWithThisBrandNotExistException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String brandNotFound(ProductWithThisBrandNotExistException ex){
+    public String handleBrandNotFound(ProductWithThisBrandNotExistException ex){
         return  ex.getMessage();
+    }
+
+    @ExceptionHandler(InvalidPriceException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleInvalidPriceException(InvalidPriceException ex) {
+        return ex.getMessage();
     }
 
 }
