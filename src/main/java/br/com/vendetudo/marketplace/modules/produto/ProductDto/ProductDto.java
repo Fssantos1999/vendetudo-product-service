@@ -1,4 +1,5 @@
 package br.com.vendetudo.marketplace.modules.produto.ProductDto;
+import br.com.vendetudo.marketplace.modules.Cart.Entity.CartEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,44 +22,30 @@ public class ProductDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
     private Long id;
+    private CartEntity cart;
 
-    public ProductDto(Long id, String productName, String description,
-                         ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
-        this.id = id;
+    public ProductDto() {
+    }
+
+    public ProductDto(String productName, String description, ProductTypeEnum type, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable, BigDecimal price, Long id, CartEntity cart) {
         this.productName = productName;
         this.description = description;
         this.type = type;
-        this.price = price;
         this.quantity = quantity;
         this.brand = brand;
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public ProductDto() {
-    }   
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
         this.id = id;
+        this.cart = cart;
     }
+
 
     public String getProductName() {
         return productName;
     }
 
-     public void setProductName(String productName) {
+    public void setProductName(String productName) {
         this.productName = productName;
     }
 
@@ -110,6 +97,27 @@ public class ProductDto {
         isAvailable = available;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
 
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public CartEntity getCart() {
+        return cart;
+    }
+
+    public void setCart(CartEntity cart) {
+        this.cart = cart;
+    }
 }

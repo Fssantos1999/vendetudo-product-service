@@ -1,16 +1,12 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
-import br.com.vendetudo.marketplace.modules.Cart.CartEntity;
+import br.com.vendetudo.marketplace.modules.Cart.Entity.CartEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import jdk.jfr.BooleanFlag;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -37,11 +33,10 @@ public class ProductEntity implements Serializable {
     private LocalDate releaseDate;
     private boolean isAvailable = false ;
      @ManyToOne
-     @JoinColumn(name = "cart_id", nullable = false)
-     CartEntity cartEntityList;
+     @JoinColumn(name = "cart_id")
+  private  CartEntity cart;
 
-    public ProductEntity(Long id, String productName, String description,
-                         ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
+    public ProductEntity(Long id, String productName, String description, ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable, CartEntity cart) {
         this.id = id;
         this.productName = productName;
         this.description = description;
@@ -50,11 +45,8 @@ public class ProductEntity implements Serializable {
         this.quantity = quantity;
         this.brand = brand;
         this.releaseDate = releaseDate;
-       this.isAvailable = isAvailable;
-    }
-
-    public ProductEntity() {
-
+        this.isAvailable = isAvailable;
+        this.cart = cart;
     }
 
     public Long getId() {
@@ -62,10 +54,16 @@ public class ProductEntity implements Serializable {
     }
 
     public void setId(Long id) {
-
         this.id = id;
     }
 
+    public CartEntity getCart() {
+        return cart;
+    }
+
+    public void setCart(CartEntity cart) {
+        this.cart = cart;
+    }
     public void setProductName(String productName) {
         this.productName = productName;
     }
