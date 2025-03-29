@@ -1,6 +1,7 @@
 package br.com.vendetudo.marketplace.modules.user.Entity;
 
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
+import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -25,9 +26,6 @@ public class UserEntity {
     @JoinColumn(name = "via_cep_response_id")
     private ViaCepResponse viaCepResponse;
 
-    public UserEntity() {
-    }
-
     public UserEntity(Long id, String name, String email, String cep, LocalDate birthDate, char gender, ViaCepResponse viaCepResponse) {
         this.id = id;
         this.name = name;
@@ -38,6 +36,8 @@ public class UserEntity {
         this.viaCepResponse = viaCepResponse;
     }
 
+    public UserEntity() {
+    }
 
     public String getCep() {
         return cep;

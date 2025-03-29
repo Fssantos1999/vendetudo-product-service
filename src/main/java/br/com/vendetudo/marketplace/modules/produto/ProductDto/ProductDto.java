@@ -44,7 +44,7 @@ public class ProductDto {
     }
 
     public ProductDto() {
-    }
+    }   
 
     public Long getId() {
         return id;
@@ -58,7 +58,7 @@ public class ProductDto {
         return productName;
     }
 
-    public void setProductName(String productName) {
+     public void setProductName(String productName) {
         this.productName = productName;
     }
 

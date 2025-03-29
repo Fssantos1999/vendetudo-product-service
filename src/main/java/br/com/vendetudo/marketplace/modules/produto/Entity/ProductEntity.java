@@ -1,4 +1,5 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
+import br.com.vendetudo.marketplace.modules.Cart.CartEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -8,11 +9,13 @@ import jdk.jfr.BooleanFlag;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "products")
 
 public class ProductEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +36,9 @@ public class ProductEntity implements Serializable {
     @PastOrPresent
     private LocalDate releaseDate;
     private boolean isAvailable = false ;
+     @ManyToOne
+     @JoinColumn(name = "cart_id", nullable = false)
+     CartEntity cartEntityList;
 
     public ProductEntity(Long id, String productName, String description,
                          ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
