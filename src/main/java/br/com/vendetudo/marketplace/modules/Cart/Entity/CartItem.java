@@ -2,6 +2,7 @@ package br.com.vendetudo.marketplace.modules.Cart.Entity;
 
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -9,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-public class HistoricCartProduct {
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,9 +22,9 @@ public class HistoricCartProduct {
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private CartEntity cart;
-
+    @PositiveOrZero
     private int quantity;
-
+    @PositiveOrZero
     private BigDecimal totalprice;
 
     @CreationTimestamp
@@ -32,11 +33,11 @@ public class HistoricCartProduct {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    public HistoricCartProduct() {
+    public CartItem() {
     }
 
 
-    public HistoricCartProduct(Long id, ProductEntity product, CartEntity cart, int quantity, BigDecimal totalprice) {
+    public CartItem(Long id, ProductEntity product, CartEntity cart, int quantity, BigDecimal totalprice) {
         this.id = id;
         this.product = product;
         this.cart = cart;

@@ -1,6 +1,5 @@
 package br.com.vendetudo.marketplace.modules.Cart.Entity;
 import br.com.vendetudo.marketplace.modules.Cart.Enums.CartStatusEnum;
-import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,26 +25,22 @@ public class CartEntity  {
     private Instant lastUpdatedAt ;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductEntity> product;
-
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HistoricCartProduct> productCarts;
+    private List<CartItem> cartItems;
 
     @OneToOne
-    private UserEntity userEntity;
+    private UserEntity user;
 
-    public CartEntity() {
-    }
 
-    public CartEntity(Long id, CartStatusEnum status, Instant createdAt, Instant lastUpdatedAt,
-                      List<ProductEntity> product, List<HistoricCartProduct> productCarts, UserEntity userEntity) {
+    public CartEntity(Long id, CartStatusEnum status, Instant createdAt, Instant lastUpdatedAt, List<CartItem> cartItems, UserEntity user) {
         this.id = id;
         this.status = status;
         this.createdAt = createdAt;
         this.lastUpdatedAt = lastUpdatedAt;
-        this.product = product;
-        this.productCarts = productCarts;
-        this.userEntity = userEntity;
+        this.cartItems = cartItems;
+        this.user = user;
+    }
+
+    public CartEntity() {
     }
 
     public Long getId() {
@@ -80,31 +75,27 @@ public class CartEntity  {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
-    public List<ProductEntity> getProduct() {
-        return product;
+    public List<CartItem> getcartItems() {
+        return cartItems;
     }
 
-    public void setProduct(List<ProductEntity> product) {
-        this.product = product;
+    public void setcartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 
-    public List<HistoricCartProduct> getProductCarts() {
-        return productCarts;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setProductCarts(List<HistoricCartProduct> productCarts) {
-        this.productCarts = productCarts;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
-
-
-
-
 }
