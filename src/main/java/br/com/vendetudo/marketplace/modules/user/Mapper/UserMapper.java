@@ -21,10 +21,10 @@ public interface UserMapper {
     @IterableMapping(elementTargetType = UserEntity.class)
     List<UserEntity> userDtoToUserEntity(List<UserDTO> userDTOS);
 
-    //* Atualização parcial do usuário
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void dtoParaUsuarioAtualizado(UpdateUserDto updateUserDto, @MappingTarget UserEntity userEntity);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "viaCepResponse", ignore = true)
     @Mapping(target = "gender", ignore = true)
     @Mapping(target = "cep", ignore = true)

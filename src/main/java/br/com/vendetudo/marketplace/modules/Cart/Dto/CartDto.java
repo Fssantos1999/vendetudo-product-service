@@ -3,6 +3,7 @@ package br.com.vendetudo.marketplace.modules.Cart.Dto;
 import br.com.vendetudo.marketplace.modules.Cart.Entity.HistoricCartProduct;
 import br.com.vendetudo.marketplace.modules.Cart.Enums.CartStatusEnum;
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
+import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 
 import java.time.Instant;
@@ -12,27 +13,21 @@ public class CartDto {
     private Long id;
     private CartStatusEnum status;
     private Instant createdAt;
-    private Instant lastUpdatedAt ;
-    private List<ProductEntity> product;
-    private UserEntity userEntity;
-    private List<HistoricCartProduct> productCarts;
+    private Instant lastUpdatedAt;
+    private List<ProductDto> productsDto;
+    private List<HistoricCartProductDto> productCartsDto;
 
     public CartDto() {
     }
 
-    public CartDto(Long id, CartStatusEnum status,
-                   Instant createdAt, Instant lastUpdatedAt,
-                   List<ProductEntity> product, UserEntity userEntity,
-                   List<HistoricCartProduct> productCarts) {
+    public CartDto(Long id, CartStatusEnum status, Instant createdAt, Instant lastUpdatedAt, List<ProductDto> productsDto, List<HistoricCartProductDto> productCartsDto) {
         this.id = id;
         this.status = status;
         this.createdAt = createdAt;
         this.lastUpdatedAt = lastUpdatedAt;
-        this.product = product;
-        this.userEntity = userEntity;
-        this.productCarts = productCarts;
+        this.productsDto = productsDto;
+        this.productCartsDto = productCartsDto;
     }
-
 
     public Long getId() {
         return id;
@@ -66,27 +61,19 @@ public class CartDto {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
-    public List<ProductEntity> getProduct() {
-        return product;
+    public List<ProductDto> getProductsDto() {
+        return productsDto;
     }
 
-    public void setProduct(List<ProductEntity> product) {
-        this.product = product;
+    public void setProductsDto(List<ProductDto> productsDto) {
+        this.productsDto = productsDto;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public List<HistoricCartProductDto> getProductCartsDto() {
+        return productCartsDto;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
-    }
-
-    public List<HistoricCartProduct> getProductCarts() {
-        return productCarts;
-    }
-
-    public void setProductCarts(List<HistoricCartProduct> productCarts) {
-        this.productCarts = productCarts;
+    public void setProductCartsDto(List<HistoricCartProductDto> productCartsDto) {
+        this.productCartsDto = productCartsDto;
     }
 }

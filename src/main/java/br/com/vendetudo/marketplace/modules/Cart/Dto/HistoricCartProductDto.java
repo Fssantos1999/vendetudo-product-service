@@ -1,33 +1,29 @@
 package br.com.vendetudo.marketplace.modules.Cart.Dto;
-
-import br.com.vendetudo.marketplace.modules.Cart.Entity.CartEntity;
-import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
+import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 public class HistoricCartProductDto {
     private Long id;
-    private ProductEntity product;
-    private CartEntity cart;
+    private ProductDto productDto;
+    private CartDto cartDto;
     private int quantity;
     private BigDecimal totalprice;
     private Instant createdAt;
     private Instant updatedAt;
 
-    public HistoricCartProductDto(Long id, ProductEntity product,
-                                  CartEntity cart, int quantity,
-                                  BigDecimal totalprice, Instant createdAt, Instant updatedAt) {
+    public HistoricCartProductDto() {
+    }
+
+    public HistoricCartProductDto(Long id, ProductDto productDto, CartDto cartDto, int quantity, BigDecimal totalprice, Instant createdAt, Instant updatedAt) {
         this.id = id;
-        this.product = product;
-        this.cart = cart;
+        this.productDto = productDto;
+        this.cartDto = cartDto;
         this.quantity = quantity;
         this.totalprice = totalprice;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public HistoricCartProductDto() {
     }
 
     public Long getId() {
@@ -38,20 +34,20 @@ public class HistoricCartProductDto {
         this.id = id;
     }
 
-    public ProductEntity getProduct() {
-        return product;
+    public ProductDto getProductDto() {
+        return productDto;
     }
 
-    public void setProduct(ProductEntity product) {
-        this.product = product;
+    public void setProductDto(ProductDto productDto) {
+        this.productDto = productDto;
     }
 
-    public CartEntity getCart() {
-        return cart;
+    public CartDto getCartDto() {
+        return cartDto;
     }
 
-    public void setCart(CartEntity cart) {
-        this.cart = cart;
+    public void setCartDto(CartDto cartDto) {
+        this.cartDto = cartDto;
     }
 
     public int getQuantity() {

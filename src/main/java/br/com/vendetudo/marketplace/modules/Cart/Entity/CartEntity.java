@@ -30,6 +30,7 @@ public class CartEntity  {
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HistoricCartProduct> productCarts;
+
     @OneToOne
     private UserEntity userEntity;
 
