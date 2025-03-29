@@ -1,5 +1,6 @@
 package br.com.vendetudo.marketplace.modules.user.Entity;
 
+import br.com.vendetudo.marketplace.modules.Cart.Entity.CartEntity;
 import br.com.vendetudo.marketplace.modules.externalapi.viacep.ViaCepResponse;
 import br.com.vendetudo.marketplace.modules.user.DTO.UserDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -25,6 +26,8 @@ public class UserEntity {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "via_cep_response_id")
     private ViaCepResponse viaCepResponse;
+    @OneToOne
+    private CartEntity cart;
 
     public UserEntity(Long id, String name, String email, String cep, LocalDate birthDate, char gender, ViaCepResponse viaCepResponse) {
         this.id = id;
