@@ -5,17 +5,13 @@ import br.com.vendetudo.marketplace.modules.produto.Exception.*;
 import br.com.vendetudo.marketplace.modules.produto.MapperProduct.ProductMapper;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Repository.ProductRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
-import java.text.ListFormat;
-import java.time.LocalDate;
+
 import java.util.List;
-import java.util.Locale;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -23,8 +19,6 @@ import java.util.stream.Collectors;
 public class ProductServiceImplement implements ProductService {
 
     ProductRepository productRepository;
-
-
     ProductMapper productMapper;
 
     @Autowired
@@ -109,7 +103,6 @@ public class ProductServiceImplement implements ProductService {
 
     @Override
     public List<ProductDto> getLowStockProducts(int threshold) {
-
         List <ProductEntity> listEntity =   productRepository.listProductWithLowQuantityInStock(threshold);
 
         return productMapper.listToDto(listEntity);

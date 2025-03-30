@@ -1,14 +1,15 @@
 package br.com.vendetudo.marketplace.modules.Cart.Dto;
 
 
-import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
+
+import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDetailsForTheCartItemDto;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
 public class CartItemDto {
     private Long id;
-    private ProductDto productDto;
+    private ProductDetailsForTheCartItemDto productDto;
     private int quantity;
     private BigDecimal totalprice;
     private Instant createdAt;
@@ -17,7 +18,7 @@ public class CartItemDto {
     public CartItemDto() {
     }
 
-    public CartItemDto(Long id, ProductDto productDto, int quantity, BigDecimal totalprice, Instant createdAt, Instant updatedAt) {
+    public CartItemDto(Long id, ProductDetailsForTheCartItemDto productDto, int quantity, BigDecimal totalprice, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.productDto = productDto;
         this.quantity = quantity;
@@ -34,11 +35,11 @@ public class CartItemDto {
         this.id = id;
     }
 
-    public ProductDto getProductDto() {
+    public ProductDetailsForTheCartItemDto getProductDto() {
         return productDto;
     }
 
-    public void setProductDto(ProductDto productDto) {
+    public void setProductDto(ProductDetailsForTheCartItemDto productDto) {
         this.productDto = productDto;
     }
 

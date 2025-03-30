@@ -22,12 +22,12 @@ public class ProductDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
     private Long id;
-    private CartEntity cart;
+
 
     public ProductDto() {
     }
 
-    public ProductDto(String productName, String description, ProductTypeEnum type, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable, BigDecimal price, Long id, CartEntity cart) {
+    public ProductDto(String productName, String description, ProductTypeEnum type, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable, BigDecimal price, Long id) {
         this.productName = productName;
         this.description = description;
         this.type = type;
@@ -37,7 +37,7 @@ public class ProductDto {
         this.isAvailable = isAvailable;
         this.price = price;
         this.id = id;
-        this.cart = cart;
+
     }
 
 
@@ -113,11 +113,4 @@ public class ProductDto {
         this.id = id;
     }
 
-    public CartEntity getCart() {
-        return cart;
-    }
-
-    public void setCart(CartEntity cart) {
-        this.cart = cart;
-    }
 }

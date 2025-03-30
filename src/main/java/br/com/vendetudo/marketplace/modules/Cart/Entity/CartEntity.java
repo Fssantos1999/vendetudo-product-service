@@ -1,15 +1,16 @@
 package br.com.vendetudo.marketplace.modules.Cart.Entity;
+
 import br.com.vendetudo.marketplace.modules.Cart.Enums.CartStatusEnum;
 import br.com.vendetudo.marketplace.modules.user.Entity.UserEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.math.BigDecimal;
+
 import java.time.Instant;
 import java.util.List;
 
 @Entity
-public class CartEntity  {
+public class CartEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +23,7 @@ public class CartEntity  {
     private Instant createdAt;
 
     @UpdateTimestamp
-    private Instant lastUpdatedAt ;
+    private Instant lastUpdatedAt;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;

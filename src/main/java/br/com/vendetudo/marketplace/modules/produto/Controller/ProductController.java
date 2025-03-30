@@ -51,12 +51,10 @@ public class ProductController {
     @GetMapping("/filter")
     public Map<Long, ProductDto> returnBrandByBrand(@RequestParam(required = false) String brand) {
         return productServiceImplement.getProductsByBrand(brand);
-
     }
     @GetMapping("/filtertype")
     public List<ProductEntity>filterTypeProduct(@RequestParam @Valid ProductTypeEnum type) {
         return productServiceImplement.getProductsByType(type);
-
     }
 
     @PatchMapping("/{productId}/price")

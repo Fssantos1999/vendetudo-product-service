@@ -12,11 +12,7 @@ public interface ProductService {
     ProductDto createProduct(ProductDto productDto);
     ProductDto updateProduct(Long id, ProductDto dto);
     void deleteProduct(Long id);
-
-
     List<ProductEntity> getProductsByType(ProductTypeEnum type);
-
-
     ProductDto getProductById(Long id);
     ProductDto deactivateProduct(Long id,Boolean status);
     ProductDto addProductQuantity(Long id , Integer quantity);

@@ -22,8 +22,10 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private CartEntity cart;
+
     @PositiveOrZero
     private int quantity;
+
     @PositiveOrZero
     private BigDecimal totalprice;
 

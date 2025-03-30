@@ -32,12 +32,12 @@ public class ProductEntity implements Serializable {
     @PastOrPresent
     private LocalDate releaseDate;
     private boolean isAvailable = false ;
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private  CartEntity cart;
 
-    public ProductEntity(Long id, String productName, String description, ProductTypeEnum type,
-                         BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable, CartEntity cart) {
+    public ProductEntity() {
+
+    }
+
+    public ProductEntity(Long id, String productName, String description, ProductTypeEnum type, BigDecimal price, Integer quantity, String brand, LocalDate releaseDate, boolean isAvailable) {
         this.id = id;
         this.productName = productName;
         this.description = description;
@@ -47,13 +47,7 @@ public class ProductEntity implements Serializable {
         this.brand = brand;
         this.releaseDate = releaseDate;
         this.isAvailable = isAvailable;
-        this.cart = cart;
     }
-
-    public ProductEntity() {
-
-    }
-
 
     public Long getId() {
         return id;
@@ -63,13 +57,6 @@ public class ProductEntity implements Serializable {
         this.id = id;
     }
 
-    public CartEntity getCart() {
-        return cart;
-    }
-
-    public void setCart(CartEntity cart) {
-        this.cart = cart;
-    }
     public void setProductName(String productName) {
         this.productName = productName;
     }
