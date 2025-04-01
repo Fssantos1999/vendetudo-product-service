@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CartServiceItemService {
 
-    CartDto addItemToCart(CartDto cart, ProductDetailsForTheCartItemDto product, int quantity);
+    CartDto addItemToCart(Long cart,ProductDetailsForTheCartItemDto productDetailsForTheCartItemDto, int quantity);
 
     void removeItemFromCart(CartDto cart, CartItem cartItem);
 

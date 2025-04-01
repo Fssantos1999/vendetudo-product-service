@@ -8,8 +8,7 @@ public class ProductDetailsForTheCartItemDto {
     private String brand;
     private Integer quantity;
     private BigDecimal price;
-    private boolean isAvailable;
-
+    private boolean isAvailable = true;
     public ProductDetailsForTheCartItemDto(Long id, String productName, String brand, Integer quantity, BigDecimal price, boolean isAvailable) {
         this.id = id;
         this.productName = productName;

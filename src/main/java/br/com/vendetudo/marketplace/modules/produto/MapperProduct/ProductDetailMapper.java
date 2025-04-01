@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 public interface ProductDetailMapper {
 
 
+    @Mapping(target = "isAvailable", ignore = true)
     ProductDetailsForTheCartItemDto toDto(ProductEntity entity);
 
     @Mapping(target = "type", ignore = true)
