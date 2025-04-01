@@ -5,7 +5,7 @@ import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDetailsFor
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface CartServiceItemService {
+public interface CartItemService {
 
     CartDto addItemToCart(Long cart,ProductDetailsForTheCartItemDto productDetailsForTheCartItemDto, int quantity);
 
