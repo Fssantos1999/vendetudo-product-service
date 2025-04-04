@@ -1,23 +1,12 @@
 package br.com.vendetudo.marketplace.modules.produto.Controller;
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
-import br.com.vendetudo.marketplace.modules.produto.Exception.ProductWithThisBrandNotExistException;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
 import br.com.vendetudo.marketplace.modules.produto.Service.ProductServiceImplement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PositiveOrZero;
-import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
-
-import javax.net.ssl.HttpsURLConnection;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
