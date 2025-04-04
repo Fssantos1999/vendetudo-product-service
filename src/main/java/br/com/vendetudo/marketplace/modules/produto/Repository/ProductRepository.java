@@ -25,7 +25,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity,Long> {
      @Query("SELECT p FROM ProductEntity  p where  p.type = :type")
      List <ProductEntity> filterByType(@Param("type") ProductTypeEnum type);
 
-     @Query("SELECT p FROM ProductEntity p where p.quantity < :quantity")
+     @Query("SELECT p FROM ProductEntity p where p.quantity = :quantity")
      List<ProductEntity> listProductWithLowQuantityInStock(@Param("quantity") Integer quantity);
 
 }

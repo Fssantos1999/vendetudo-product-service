@@ -16,7 +16,7 @@ public interface ProductService {
     ProductDto getProductById(Long id);
     ProductDto deactivateProduct(Long id,Boolean status);
     ProductDto addProductQuantity(Long id , Integer quantity);
-    List<ProductDto> getLowStockProducts(int threshold);
+    List<ProductDto> getLowStockProducts(Integer threshold);
     ProductDto  updateProductPrice(Long productId, BigDecimal newPrice);
 
 

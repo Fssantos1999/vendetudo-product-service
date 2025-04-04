@@ -27,7 +27,6 @@ public class ProductServiceImplement implements ProductService {
         this.productMapper = productMapper;
     }
 
-
     @Override
     public ProductDto createProduct(ProductDto create) {
         ProductEntity product = productMapper.toEntity(create);
@@ -102,9 +101,8 @@ public class ProductServiceImplement implements ProductService {
     }
 
     @Override
-    public List<ProductDto> getLowStockProducts(int threshold) {
+    public List<ProductDto> getLowStockProducts(Integer threshold) {
         List <ProductEntity> listEntity =   productRepository.listProductWithLowQuantityInStock(threshold);
-
         return productMapper.listToDto(listEntity);
     }
 

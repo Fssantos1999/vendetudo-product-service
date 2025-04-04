@@ -59,11 +59,7 @@ public class UserServiceImplement implements UserService {
 
     @Override
     public List<UserDTO> listarUsuarios() {
-        List listaUsuarios = userMapper.userToUserDto(userRepository.findAll());
-        if (listaUsuarios.isEmpty()) {
-            throw new EmptyListExceptions();
-        }
-        return listaUsuarios;
+        return userRepository.findAll().stream().map(userMapper::userToUserDto).toList();
     }
 
     @Override

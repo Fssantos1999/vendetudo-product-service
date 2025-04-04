@@ -62,6 +62,10 @@ public class ProductController {
         return productServiceImplement.updateProductPrice(productId, priceUpdateRequest.getPrice());
     }
 
+    @GetMapping()
+    public List <ProductDto> listarProdutosComBaixoEstoque(@PathVariable Integer  quantity ){
+        return  productServiceImplement.getLowStockProducts(quantity);
+    }
 
 
 }

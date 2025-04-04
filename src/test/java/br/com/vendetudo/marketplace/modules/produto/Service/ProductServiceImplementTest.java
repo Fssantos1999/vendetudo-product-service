@@ -45,33 +45,33 @@ class ProductServiceImplementTest {
     private ProductEntity productEntity;
 
 
-    @BeforeEach
-    void setUp() {//Arrange
-
-        productDto = new ProductDto(
-                2L,
-                "Chuteira Nike",
-                "Tênis Esportivo",
-                ProductTypeEnum.CLOTHING,
-                BigDecimal.valueOf(250.00),
-                23,
-                "Nike",
-                LocalDate.of(2025, 5, 23),
-                true
-        );
-
-        productEntity = new ProductEntity(
-                1L,
-                "Nike Rosa",
-                "Tênis Rosa",
-                ProductTypeEnum.CLOTHING,
-                BigDecimal.valueOf(250.00),
-                23,
-                "Nike",
-                LocalDate.of(2025, 5, 23),
-                true
-        );
-    }
+//    @BeforeEach
+//    void setUp() {//Arrange
+//
+//        productDto = new ProductDto(
+//                2L,
+//                "Chuteira Nike",
+//                "Tênis Esportivo",
+//                ProductTypeEnum.CLOTHING,
+//                BigDecimal.valueOf(250.00),
+//                23,
+//                "Nike",
+//                LocalDate.of(2025, 5, 23),
+//                true
+//        );
+//
+//        productEntity = new ProductEntity(
+//                1L,
+//                "Nike Rosa",
+//                "Tênis Rosa",
+//                ProductTypeEnum.CLOTHING,
+//                BigDecimal.valueOf(250.00),
+//                23,
+//                "Nike",
+//                LocalDate.of(2025, 5, 23),
+//                true
+//        );
+//    }
 
 
     @Test
