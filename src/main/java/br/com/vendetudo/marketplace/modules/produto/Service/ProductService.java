@@ -1,12 +1,9 @@
 package br.com.vendetudo.marketplace.modules.produto.Service;
-
 import br.com.vendetudo.marketplace.modules.produto.Entity.ProductEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDto;
-
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 public interface ProductService {
     ProductDto createProduct(ProductDto productDto);

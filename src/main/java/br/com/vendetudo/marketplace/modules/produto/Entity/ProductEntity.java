@@ -1,5 +1,4 @@
 package br.com.vendetudo.marketplace.modules.produto.Entity;
-import br.com.vendetudo.marketplace.modules.Cart.Entity.CartEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

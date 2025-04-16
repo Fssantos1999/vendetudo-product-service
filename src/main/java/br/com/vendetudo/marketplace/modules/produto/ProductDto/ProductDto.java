@@ -1,12 +1,6 @@
 package br.com.vendetudo.marketplace.modules.produto.ProductDto;
-import br.com.vendetudo.marketplace.modules.Cart.Entity.CartEntity;
 import br.com.vendetudo.marketplace.modules.produto.Enums.ProductTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 

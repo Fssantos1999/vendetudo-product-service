@@ -37,8 +37,6 @@ public class CartItem {
 
     public CartItem() {
     }
-
-
     public CartItem(Long id, ProductEntity product, CartEntity cart, int quantity, BigDecimal totalprice) {
         this.id = id;
         this.product = product;
@@ -46,7 +44,6 @@ public class CartItem {
         this.quantity = quantity;
         this.totalprice = totalprice;
     }
-
 
     public Long getId() {
         return id;
