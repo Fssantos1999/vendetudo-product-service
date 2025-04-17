@@ -1,7 +1,4 @@
 package br.com.vendetudo.marketplace.modules.Cart.Dto;
-
-
-
 import br.com.vendetudo.marketplace.modules.produto.ProductDto.ProductDetailsForTheCartItemDto;
 
 import java.math.BigDecimal;
