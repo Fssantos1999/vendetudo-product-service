@@ -16,14 +16,13 @@ import java.util.Optional;
 public class CartServiceImplements implements  CartService {
     private final CartRepository cartRepository ;
     private final CartMapper cartMapper;
-    private UserRepository userRepository;
-    private UserDTO userDTO;
-    private CartDto cartDto;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CartServiceImplements(CartRepository cartRepository, CartMapper cartMapper) {
+    public CartServiceImplements(CartRepository cartRepository, CartMapper cartMapper, UserRepository userRepository) {
         this.cartRepository = cartRepository;
         this.cartMapper = cartMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -50,7 +49,12 @@ public class CartServiceImplements implements  CartService {
 
     @Override
     public void clearCart(Long userId) {
-
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(UserNotFound::new);
+        CartEntity cart = cartRepository.findByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Carrinho não encontrado"));
+        cart.getCartItems().clear();
+        cartRepository.save(cart);
 
     }
 }
